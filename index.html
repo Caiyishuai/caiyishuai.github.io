@@ -1,24 +1,792 @@
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>蔡怡帅 - Yishuai Cai</title>
+    <meta name="description" content="蔡怡帅的个人主页 - Yishuai Cai's Homepage">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%231e3a8a'/%3E%3Ctext x='50' y='70' font-size='70' font-weight='bold' fill='white' text-anchor='middle' font-family='Arial, sans-serif'%3EC%3C/text%3E%3C/svg%3E">
+    <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%231e3a8a'/%3E%3Ctext x='50' y='70' font-size='70' font-weight='bold' fill='white' text-anchor='middle' font-family='Arial, sans-serif'%3EC%3C/text%3E%3C/svg%3E">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Helvetica Neue", Helvetica, Arial, sans-serif;
+        line-height: 1.6;
+        color: #333;
+        background-color: #fff;
+      }
+      
+      a {
+        color: #3498db;
+        text-decoration: none;
+      }
+      
+      a:hover {
+        text-decoration: underline;
+        color: #2980b9;
+      }
+      
+      /* Masthead Navigation */
+      .masthead {
+        border-bottom: 1px solid #e8e8e8;
+        background-color: #fff;
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+      }
+      
+      .masthead__inner-wrap {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+      
+      .masthead__menu {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 0;
+      }
+      
+      .greedy-nav {
+        display: flex;
+        width: 100%;
+        justify-content: space-between;
+        align-items: center;
+      }
+      
+      .visible-links {
+        display: flex;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        gap: 20px;
+        flex-wrap: wrap;
+      }
+      
+      .masthead__menu-item {
+        font-size: 14px;
+      }
+      
+      .masthead__menu-item a {
+        color: #333;
+        padding: 5px 10px;
+        display: block;
+        position: relative;
+        transition: color 0.3s;
+      }
+      
+      .masthead__menu-item a:hover {
+        color: #3498db;
+        text-decoration: none;
+      }
+      
+      .masthead__menu-item a:hover::after {
+        content: "";
+        position: absolute;
+        bottom: -1px;
+        left: 10px;
+        right: 10px;
+        height: 3px;
+        background-color: #3498db;
+        border-radius: 2px 2px 0 0;
+      }
+      
+      .masthead__menu-home-item {
+        font-weight: bold;
+      }
+      
+      .lang-switcher {
+        display: flex;
+        gap: 5px;
+      }
+      
+      .lang-btn {
+        background: transparent;
+        border: 1px solid #ddd;
+        color: #333;
+        padding: 5px 12px;
+        border-radius: 3px;
+        cursor: pointer;
+        font-size: 13px;
+        transition: all 0.3s;
+        white-space: nowrap;
+        min-width: 70px;
+        text-align: center;
+      }
+      
+      .lang-btn:hover {
+        background: #f5f5f5;
+        border-color: #3498db;
+      }
+      
+      .lang-btn.active {
+        background: #3498db;
+        color: white;
+        border-color: #3498db;
+      }
+      
+      /* Main Layout */
+      #main {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+        display: flex;
+        gap: 30px;
+        align-items: flex-start;
+      }
+      
+      /* Sidebar */
+      .sidebar {
+        width: 280px;
+        flex-shrink: 0;
+        position: sticky;
+        top: 80px;
+        align-self: flex-start;
+      }
+      
+      .profile_box {
+        margin-bottom: 20px;
+      }
+      
+      .author__avatar {
+        margin-bottom: 15px;
+      }
+      
+      .author__avatar img {
+        width: 175px;
+        height: 175px;
+        border-radius: 50%;
+        border: 3px solid #3498db;
+        display: block;
+        box-shadow: 0 2px 8px rgba(52, 152, 219, 0.2);
+        object-fit: cover;
+      }
+      
+      .author__content {
+        margin-bottom: 15px;
+      }
+      
+      .author__name {
+        font-size: 24px;
+        font-weight: bold;
+        margin-bottom: 5px;
+        color: #333;
+      }
+      
+      .author__bio {
+        font-size: 14px;
+        color: #666;
+        margin-bottom: 10px;
+      }
+      
+      .author__urls {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+      
+      .author__urls li {
+        margin-bottom: 8px;
+        font-size: 14px;
+        line-height: 1.5;
+      }
+      
+      .author__urls li i {
+        width: 20px;
+        margin-right: 8px;
+        color: #666;
+      }
+      
+      .author__urls li a {
+        color: #333;
+      }
+      
+      .author__urls li a:hover {
+        color: #3498db;
+        text-decoration: none;
+      }
+      
+      /* Main Content */
+      .page {
+        flex: 1;
+        min-width: 0;
+      }
+      
+      .page__inner-wrap {
+        max-width: 100%;
+      }
+      
+      .page__content {
+        font-size: 15px;
+        line-height: 1.8;
+      }
+      
+      .anchor {
+        display: block;
+        position: relative;
+        top: -80px;
+        visibility: hidden;
+      }
+      
+      /* Section Headings */
+      h1 {
+        font-size: 28px;
+        margin-top: 30px;
+        margin-bottom: 15px;
+        color: #333;
+        font-weight: bold;
+      }
+      
+      h1:first-of-type {
+        margin-top: 0;
+      }
+      
+      h1 i {
+        margin-right: 8px;
+        color: #3498db;
+      }
+      
+      /* News List */
+      ul {
+        list-style: none;
+        padding-left: 0;
+      }
+      
+      ul li {
+        margin-bottom: 10px;
+        padding-left: 0;
+        position: relative;
+      }
+      
+      ul li em {
+        color: #666;
+        font-style: normal;
+        font-weight: 500;
+      }
+      
+      /* Paper Box */
+      .paper-box {
+        display: flex;
+        gap: 15px;
+        margin-bottom: 20px;
+        padding: 15px;
+        background: #f9f9f9;
+        border-radius: 5px;
+      }
+      
+      .paper-box-image {
+        flex-shrink: 0;
+        width: 400px;
+      }
+      
+      .paper-box-image > div {
+        position: relative;
+        width: 100%;
+        padding-top: 60%;
+        background: #e0e0e0;
+        border-radius: 3px;
+        overflow: hidden;
+      }
+      
+      .paper-box-image img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        cursor: pointer;
+        transition: transform 0.3s;
+      }
+      
+      .paper-box-image img:hover {
+        transform: scale(1.05);
+      }
+      
+      /* Lightbox for image zoom */
+      .lightbox {
+        display: none;
+        position: fixed;
+        z-index: 9999;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.9);
+        cursor: pointer;
+      }
+      
+      .lightbox img {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        max-width: 90vw;
+        max-height: 90vh;
+        width: auto;
+        height: auto;
+        object-fit: contain;
+        object-position: center;
+      }
+      
+      .lightbox.active {
+        display: block;
+      }
+      
+      .badge {
+        position: absolute;
+        top: 5px;
+        left: 5px;
+        background: #3498db;
+        color: white;
+        padding: 3px 8px;
+        font-size: 11px;
+        font-weight: bold;
+        border-radius: 3px;
+        z-index: 1;
+      }
+      
+      .paper-box-text {
+        flex: 1;
+      }
+      
+      .paper-box-text p {
+        margin-bottom: 8px;
+      }
+      
+      .paper-box-text p:first-child {
+        font-size: 16px;
+        font-weight: 500;
+      }
+      
+      .paper-box-text p:first-child a {
+        color: #3498db;
+        font-weight: 500;
+      }
+      
+      .paper-box-text strong {
+        color: #333;
+      }
+      
+      .show_paper_citations {
+        color: #666;
+        font-size: 14px;
+      }
+      
+      /* Responsive */
+      @media (max-width: 1024px) {
+        #main {
+          flex-direction: column;
+        }
+        
+        .sidebar {
+          width: 100%;
+          display: flex;
+          gap: 20px;
+          align-items: flex-start;
+        }
+        
+        .author__avatar {
+          margin-bottom: 0;
+        }
+        
+        .author__avatar img {
+          width: 120px;
+          height: 120px;
+          object-fit: cover;
+        }
+      }
+      
+      @media (max-width: 768px) {
+        .masthead__menu {
+          flex-direction: column;
+          gap: 10px;
+        }
+        
+        .visible-links {
+          flex-direction: column;
+          gap: 5px;
+          width: 100%;
+        }
+        
+        .sidebar {
+          flex-direction: column;
+        }
+        
+        .paper-box {
+          flex-direction: column;
+        }
+        
+        .paper-box-image {
+          width: 100%;
+        }
+        
+        .paper-box-image > div {
+          padding-top: 40%;
+        }
+      }
+    </style>
+  </head>
+  
+  <body>
+    <!-- Masthead Navigation -->
+    <div class="masthead">
+      <div class="masthead__inner-wrap">
+        <div class="masthead__menu">
+          <nav id="site-nav" class="greedy-nav">
+            <ul class="visible-links">
+              <li class="masthead__menu-item masthead__menu-item--lg masthead__menu-home-item">
+                <a href="#about-me" data-zh="主页" data-en="Homepage">Homepage</a>
+              </li>
+              <li class="masthead__menu-item">
+                <a href="#about-me" data-zh="关于我" data-en="About Me">About Me</a>
+              </li>
+              <li class="masthead__menu-item">
+                <a href="#news" data-zh="新闻" data-en="News">News</a>
+              </li>
+              <li class="masthead__menu-item">
+                <a href="#publications" data-zh="发表论文" data-en="Publications">Publications</a>
+              </li>
+              <li class="masthead__menu-item">
+                <a href="#honors" data-zh="荣誉奖项" data-en="Honors and Awards">Honors and Awards</a>
+              </li>
+              <li class="masthead__menu-item">
+                <a href="#skills" data-zh="职业技能" data-en="Professional Skills">Professional Skills</a>
+              </li>
+              <li class="masthead__menu-item">
+                <a href="#education" data-zh="教育背景" data-en="Education">Education</a>
+              </li>
+            </ul>
+          </nav>
+          <div class="lang-switcher">
+            <button class="lang-btn" onclick="switchLang('zh')">中文</button>
+            <button class="lang-btn active" onclick="switchLang('en')">English</button>
+          </div>
+    </div>
+  </div>
+</div>
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
-  "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
-<head>
-<meta name="generator" content="jemdoc, see http://jemdoc.jaboc.net/" />
-<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-<link rel="stylesheet" href="jemdoc.css" type="text/css" />
-<link rel="stylesheet" href="./config/jemdoc.css" type="text/css" />
-<link rel="stylesheet" href="./config/jemdoc.css" type="text/css" />
-<script src="./config/ga.js" type="text/javascript"></script>
-<title>Yishuai Cai</title>
-</head>
-<body>
-<div id="layout-content">
-<div id="toptitle">
-<h1>Yishuai Cai</h1>
+    <!-- Main Content -->
+    <div id="main" role="main">
+      <!-- Sidebar -->
+      <div class="sidebar sticky">
+        <div itemscope itemtype="http://schema.org/Person" class="profile_box">
+          <div class="author__avatar">
+            <img src="images/cys.png" class="author__avatar" alt="Yishuai Cai" onerror="this.src='https://via.placeholder.com/175'">
+          </div>
+
+          <div class="author__content">
+            <h3 class="author__name" data-zh="蔡怡帅" data-en="Yishuai Cai">Yishuai Cai</h3>
+            <p class="author__bio" data-zh="国防科技大学计算机科学与技术博士在读" data-en="Ph.D. Student in Computer Science and Technology, National University of Defense Technology">Ph.D. Student in Computer Science and Technology, National University of Defense Technology</p>
+            <p class="author__bio" data-zh="北京大学-灵初智能联合实验室实习交流" data-en="Research Assistantship at Peking University - Psibot Joint Laboratory">Research Assistantship at Peking University - Psibot Joint Laboratory</p>
+  </div>
+
+          <div class="author__urls-wrapper">
+            <ul class="author__urls social-icons">
+              <li>
+                <div style="white-space: normal; margin-bottom: 1em; font-size: 14px; line-height: 1.6;" data-zh="我的研究方向是具身智能和机器人，涉及高层行为规划和低层运动控制，包括任务和运动规划（TAMP）、行为树生成、视觉语言动作模型（VLA）、真机强化学习等。" data-en="My research focuses on embodied intelligence and robotics, involving high-level behavior planning and low-level motion control, including Task and Motion Planning (TAMP), behavior tree generation, Vision-Language-Action (VLA) models, and real-world reinforcement learning.">My research focuses on embodied intelligence and robotics, involving high-level behavior planning and low-level motion control, including Task and Motion Planning (TAMP), behavior tree generation, Vision-Language-Action (VLA) models, and real-world reinforcement learning.</div>
+              </li>
+              <li><i class="fa fa-fw fa-map-marker" aria-hidden="true"></i> <span data-zh="北京，中国" data-en="Beijing, China">Beijing, China</span></li>
+              <li><a href="mailto:yishuai.cai@outlook.com"><i class="fas fa-fw fa-envelope" aria-hidden="true"></i> Email</a></li>
+              <li><a href="https://scholar.google.com/citations?user=woOucrYAAAAJ&hl=zh-CN&oi=ao" target="_blank"><i class="fas fa-fw fa-graduation-cap"></i> Google Scholar</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Main Content Area -->
+      <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
+        <div class="page__inner-wrap">
+          <section class="page__content" itemprop="text">
+            
+<p><span class="anchor" id="about-me"></span></p>
+
+            <p data-zh="我是国防科技大学计算机科学与技术专业博士在读，目前在北京大学-灵初智能联合实验室杨耀东老师指导下进行实习交流。我的研究方向是具身智能和机器人，涉及高层行为规划和低层运动控制，包括任务和运动规划（TAMP）、行为树生成、视觉语言动作模型（VLA）、真机强化学习等。" data-en="I am a Ph.D. student in Computer Science and Technology at the National University of Defense Technology, currently working as a research assistant with a Research Assistantship at the Peking University - Psibot Joint Laboratory under the supervision of Prof. Yaodong Yang. My research focuses on embodied intelligence and robotics, involving high-level behavior planning and low-level motion control, including Task and Motion Planning (TAMP), behavior tree generation, Vision-Language-Action (VLA) models, and real-world reinforcement learning.">I am a Ph.D. student in Computer Science and Technology at the National University of Defense Technology, currently working as a research assistant with a Research Assistantship at the Peking University - Psibot Joint Laboratory under the supervision of Prof. Yaodong Yang. My research focuses on embodied intelligence and robotics, involving high-level behavior planning and low-level motion control, including Task and Motion Planning (TAMP), behavior tree generation, Vision-Language-Action (VLA) models, and real-world reinforcement learning.</p>
+
+            <!-- <p data-zh="我在" data-en="I have published papers at top international conferences with total">I have published papers at top international conferences with total <a href="https://scholar.google.com/citations?user=woOucrYAAAAJ&hl=zh-CN&oi=ao" target="_blank">Google Scholar</a> <span data-zh="上发表了多篇论文，总引用数为" data-en="citations">citations</span> <strong><span id="total_cit">-</span></strong> <span data-zh="（数据正在加载...）" data-en="(loading...)">(loading...)</span>.</p> -->
+
+            <h1 id="news"><i class="fas fa-fire"></i> <span data-zh="新闻" data-en="News">News</span></h1>
+<ul>
+              <li><em>2025.01</em>: <span data-zh="欢迎访问我的个人主页！" data-en="Welcome to my homepage!">Welcome to my homepage!</span></li>
+</ul>
+
+            <h1 id="publications"><i class="fas fa-file-alt"></i> <span data-zh="发表论文" data-en="Publications">Publications</span></h1>
+
+            <!-- Paper 1: MRBTP -->
+            <div class="paper-box">
+              <div class="paper-box-image">
+                <div>
+                  <div class="badge">AAAI 2025</div>
+                  <img src="images/mrbtp.png" alt="MRBTP" width="100%" onerror="this.style.display='none'">
+                </div>
+              </div>
+<div class="paper-box-text">
+                <p><a href="https://dids-ei.github.io/Project/MRBTP/" target="_blank" data-zh="MRBTP: Efficient Multi-Robot Behavior Tree Planning and Collaboration" data-en="MRBTP: Efficient Multi-Robot Behavior Tree Planning and Collaboration">MRBTP: Efficient Multi-Robot Behavior Tree Planning and Collaboration</a></p>
+                <p data-zh="<strong>蔡怡帅</strong>, Xinglin Chen, Zhongxuan Cai, Yunxin Mao, Minglong Li, Wenjing Yang, Ji Wang" data-en="<strong>Yishuai Cai</strong>, Xinglin Chen, Zhongxuan Cai, Yunxin Mao, Minglong Li, Wenjing Yang, Ji Wang"><strong>Yishuai Cai</strong>, Xinglin Chen, Zhongxuan Cai, Yunxin Mao, Minglong Li, Wenjing Yang, Ji Wang</p>
+                <p><strong><span style="color: #DC143C; font-weight: bold;" data-zh="AAAI 2025 Oral" data-en="AAAI 2025 Oral">AAAI 2025 Oral</span></strong> <strong><span class="show_paper_citations" data="woOucrYAAAAJ:paper1">| Citations: 4</span></strong></p>
+                <ul>
+                  <li data-zh="提出了多机器人行为树规划算法，具有理论保证的完备性和正确性，通过跨树扩展和意图共享实现高效协作。" data-en="Proposes a multi-robot behavior tree planning algorithm with theoretical guarantees of soundness and completeness, achieving efficient collaboration through cross-tree expansion and intention sharing.">Proposes a multi-robot behavior tree planning algorithm with theoretical guarantees of soundness and completeness, achieving efficient collaboration through cross-tree expansion and intention sharing.</li>
+                </ul>
+              </div>
+            </div>
+
+        <!-- Paper 3: DexFlyWheel -->
+        <div class="paper-box">
+            <div class="paper-box-image">
+                <div>
+                <div class="badge">NeurIPS 2025</div>
+                <img src="images/dexflywheel.png" alt="DexFlyWheel" width="100%" onerror="this.style.display='none'">
+                </div>
+            </div>
+            <div class="paper-box-text">
+                <p><a href="https://dexflywheel.github.io/" data-zh="DexFlyWheel: A Scalable and Self-improving Data Generation Framework for Dexterous Manipulation" data-en="DexFlyWheel: A Scalable and Self-improving Data Generation Framework for Dexterous Manipulation">DexFlyWheel: A Scalable and Self-improving Data Generation Framework for Dexterous Manipulation</a></p>
+                <p data-zh="Kefei Zhu, Fengshuo Bai, YuanHao Xiang, <strong>蔡怡帅</strong>, Xinglin Chen, Ruochong Li, Xingtao Wang, Hao Dong, Yaodong Yang<sup>†</sup>, Xiaopeng Fan<sup>†</sup>, Yuanpei Chen<sup>†</sup>" data-en="Kefei Zhu, Fengshuo Bai, YuanHao Xiang, <strong>Yishuai Cai</strong>, Xinglin Chen, Ruochong Li, Xingtao Wang, Hao Dong, Yaodong Yang<sup>†</sup>, Xiaopeng Fan<sup>†</sup>, Yuanpei Chen<sup>†</sup>">Kefei Zhu, Fengshuo Bai, YuanHao Xiang, <strong>Yishuai Cai</strong>, Xinglin Chen, Ruochong Li, Xingtao Wang, Hao Dong, Yaodong Yang<sup>†</sup>, Xiaopeng Fan<sup>†</sup>, Yuanpei Chen<sup>†</sup></p>
+                <p><strong><span style="color: #DC143C; font-weight: bold;" data-zh="NeurIPS 2025 Spotlight (Top 3.2%)" data-en="NeurIPS 2025 Spotlight (Top 3.2%)">NeurIPS 2025 Spotlight (Top 3.2%)</span></strong> <strong><span class="show_paper_citations" data="woOucrYAAAAJ:paper3">| Citations: -</span></strong></p>
+                <ul>
+                <li data-zh="提出了可扩展且自改进的灵巧操作数据生成框架，用于高效生成高质量的灵巧操作数据。" data-en="Proposes a scalable and self-improving data generation framework for efficiently generating high-quality dexterous manipulation data.">Proposes a scalable and self-improving data generation framework for efficiently generating high-quality dexterous manipulation data.</li>
+</ul>
+            </div>
+            </div>
+
+                          
+            <!-- Paper 4: HBTP -->
+            <div class="paper-box">
+                <div class="paper-box-image">
+                  <div>
+                    <div class="badge">ICRA 2025</div>
+                    <img src="images/hbtp.png" alt="HBTP" width="100%" onerror="this.style.display='none'">
+                  </div>
+                </div>
+                <div class="paper-box-text">
+                  <p><a href="https://dids-ei.github.io/Project/HBTP/" target="_blank" data-zh="HBTP: Heuristic Behavior Tree Planning with Large Language Model Reasoning" data-en="HBTP: Heuristic Behavior Tree Planning with Large Language Model Reasoning">HBTP: Heuristic Behavior Tree Planning with Large Language Model Reasoning</a></p>
+                  <p data-zh="<strong>蔡怡帅</strong>, Xinglin Chen, Yunxin Mao, Minglong Li, Shaowu Yang, Wenjing Yang, Ji Wang" data-en="<strong>Yishuai Cai</strong>, Xinglin Chen, Yunxin Mao, Minglong Li, Shaowu Yang, Wenjing Yang, Ji Wang"><strong>Yishuai Cai</strong>, Xinglin Chen, Yunxin Mao, Minglong Li, Shaowu Yang, Wenjing Yang, Ji Wang</p>
+                  <p><strong>ICRA 2025</strong> <strong><span class="show_paper_citations" data="woOucrYAAAAJ:paper4">| Citations: 2</span></strong></p>
+                  <ul>
+                    <li data-zh="提出了启发式行为树规划框架，结合大语言模型推理生成启发式路径，提升行为树规划效率。" data-en="Proposes a heuristic behavior tree planning framework that leverages large language model reasoning to generate heuristic paths, improving planning efficiency.">Proposes a heuristic behavior tree planning framework that leverages large language model reasoning to generate heuristic paths, improving planning efficiency.</li>
+  </ul>
+                </div>
+              </div>
+
+            <!-- Paper 2: Integrating Intent Understanding -->
+            <div class="paper-box">
+              <div class="paper-box-image">
+                <div>
+                  <div class="badge">IJCAI 2024</div>
+                  <img src="images/robowaiter.png" alt="Intent Understanding" width="100%" onerror="this.style.display='none'">
+                </div>
+              </div>
+              <div class="paper-box-text">
+                <p><a href="https://dids-ei.github.io/Project/LLM-OBTEA/" target="_blank" data-zh="Integrating Intent Understanding and Optimal Behavior Planning for Behavior Tree Generation from Human Instructions" data-en="Integrating Intent Understanding and Optimal Behavior Planning for Behavior Tree Generation from Human Instructions">Integrating Intent Understanding and Optimal Behavior Planning for Behavior Tree Generation from Human Instructions</a></p>
+                <p data-zh="Xinglin Chen, <strong>蔡怡帅</strong>, Yunxin Mao, Minglong Li, Wenjing Yang, Weixia Xu, Ji Wang" data-en="Xinglin Chen, <strong>Yishuai Cai</strong>, Yunxin Mao, Minglong Li, Wenjing Yang, Weixia Xu, Ji Wang">Xinglin Chen, <strong>Yishuai Cai</strong>, Yunxin Mao, Minglong Li, Wenjing Yang, Weixia Xu, Ji Wang</p>
+                <p><strong>IJCAI 2024</strong> <a href="https://dids-ei.github.io/Project/LLM-OBTEA/" target="_blank"><strong>Project</strong></a> <strong><span class="show_paper_citations" data="woOucrYAAAAJ:paper2">| Citations: 19</span></strong></p>
+                <ul>
+                  <li data-zh="提出了两阶段的行为树生成框架，结合大语言模型和最优行为树扩展算法，从人类指令生成可靠的行为树。" data-en="Proposes a two-stage framework for behavior tree generation that combines large language models with optimal behavior tree expansion to generate reliable behavior trees from human instructions.">Proposes a two-stage framework for behavior tree generation that combines large language models with optimal behavior tree expansion to generate reliable behavior trees from human instructions.</li>
+    </ul>
+  </div>
 </div>
-<p>PhD. Student<br /> 
-</p>
-<p>
-</div>
-</body>
+
+
+
+
+            <!-- Paper 5: Task2Morph -->
+            <div class="paper-box">
+              <div class="paper-box-image">
+                <div>
+                  <div class="badge">IROS 2023</div>
+                  <img src="images/task2morph.png" alt="Task2Morph" width="100%" onerror="this.style.display='none'">
+                </div>
+              </div>
+              <div class="paper-box-text">
+                <p><a href="https://ieeexplore.ieee.org/document/10342063" target="_blank" data-zh="Task2Morph: Differentiable Task-inspired Framework for Contact-Aware Robot Design" data-en="Task2Morph: Differentiable Task-inspired Framework for Contact-Aware Robot Design">Task2Morph: Differentiable Task-inspired Framework for Contact-Aware Robot Design</a></p>
+                <p data-zh="<strong>蔡怡帅</strong>, Shaowu Yang, Minglong Li, Xinglin Chen, Yunxin Mao, Xiaodong Yi, Wenjing Yang" data-en="<strong>Yishuai Cai</strong>, Shaowu Yang, Minglong Li, Xinglin Chen, Yunxin Mao, Xiaodong Yi, Wenjing Yang"><strong>Yishuai Cai</strong>, Shaowu Yang, Minglong Li, Xinglin Chen, Yunxin Mao, Xiaodong Yi, Wenjing Yang</p>
+                <p><strong>IROS 2023</strong> <strong><span class="show_paper_citations" data="woOucrYAAAAJ:paper5">| Citations: 4</span></strong></p>
+                <!-- <ul>
+                  <li data-zh="提出了可微分任务驱动框架，用于接触感知的机器人设计，通过任务到形态的映射优化机器人形态。" data-en="Proposes a differentiable task-inspired framework for contact-aware robot design that optimizes robot morphology through task-to-morphology mapping.">Proposes a differentiable task-inspired framework for contact-aware robot design that optimizes robot morphology through task-to-morphology mapping.</li>
+</ul> -->
+              </div>
+            </div>
+
+            <!-- Paper 6: Evolving Physical Instinct -->
+            <div class="paper-box">
+              <div class="paper-box-image">
+                <div>
+                  <div class="badge">IROS 2023</div>
+                  <img src="images/instinctrl.png" alt="Evolving Physical Instinct" width="100%" onerror="this.style.display='none'">
+                </div>
+              </div>
+              <div class="paper-box-text">
+                <p><a href="https://ieeexplore.ieee.org/document/10342064" target="_blank" data-zh="Evolving Physical Instinct for Morphology and Control Co-Adaption" data-en="Evolving Physical Instinct for Morphology and Control Co-Adaption">Evolving Physical Instinct for Morphology and Control Co-Adaption</a></p>
+                <p data-zh="Xinglin Chen, Da Huang, Minglong Li, <strong>蔡怡帅</strong>, Zhuoer Wen, Zhongxuan Cai, Wenjing Yang" data-en="Xinglin Chen, Da Huang, Minglong Li, <strong>Yishuai Cai</strong>, Zhuoer Wen, Zhongxuan Cai, Wenjing Yang">Xinglin Chen, Da Huang, Minglong Li, <strong>Yishuai Cai</strong>, Zhuoer Wen, Zhongxuan Cai, Wenjing Yang</p>
+                <p><strong>IROS 2023</strong> <strong><span class="show_paper_citations" data="woOucrYAAAAJ:paper6">| Citations: 5</span></strong></p>
+                <!-- <ul>
+                  <li data-zh="受生物启发，提出了可进化的本能控制器，通过提供粗略运动倾向增强形态-控制协同适应，降低计算复杂度。" data-en="Inspired by nature, proposes an evolvable instinct controller that enhances morphology-control co-adaption by providing rough motion inclinations, reducing computation complexity.">Inspired by nature, proposes an evolvable instinct controller that enhances morphology-control co-adaption by providing rough motion inclinations, reducing computation complexity.</li>
+                </ul> -->
+              </div>
+            </div>
+
+            <!-- <p style="margin-top: 20px;" data-zh="更多论文请访问我的" data-en="For more publications, please visit my">For more publications, please visit my <a href="https://scholar.google.com/citations?user=woOucrYAAAAJ&hl=zh-CN&oi=ao" target="_blank">Google Scholar</a> <span data-zh="页面。" data-en="profile.">profile.</span></p> -->
+
+            <h1 id="honors"><i class="fas fa-trophy"></i> <span data-zh="荣誉奖项" data-en="Honors and Awards">Honors and Awards</span></h1>
+<ul>
+              <li data-zh="国家奖学金(博士阶段)、国家奖学金(本科阶段)、浙江省优秀本科毕业生、浙江省政府奖学金、国防科技大学校级优秀学员" data-en="National Scholarship (Ph.D.), National Scholarship (Undergraduate), Outstanding Graduate of Zhejiang Province, Zhejiang Provincial Government Scholarship, Outstanding Student of National University of Defense Technology">National Scholarship (Ph.D.), National Scholarship (Undergraduate), Outstanding Graduate of Zhejiang Province, Zhejiang Provincial Government Scholarship, Outstanding Student of National University of Defense Technology</li>
+              <li><em>2023</em>: <span data-zh="中国软件大会-机器人大模型与具身智能挑战赛全国一等奖" data-en="First Prize, China Software Conference - Robot Large Model and Embodied Intelligence Challenge (National)">First Prize, China Software Conference - Robot Large Model and Embodied Intelligence Challenge (National)</span></li>
+              <li><em>2022</em>: <span data-zh="第六届全军军事建模竞赛特等奖（队长）" data-en="Special Prize, 6th Military Mathematical Modeling Competition (Team Leader)">Special Prize, 6th Military Mathematical Modeling Competition (Team Leader)</span></li>
+              <li><em>2020</em>: <span data-zh="美国大学生数学建模竞赛国际一等奖" data-en="First Prize, Mathematical Contest in Modeling (MCM/ICM)">First Prize, Mathematical Contest in Modeling (MCM/ICM)</span></li>
+              <li><em>2019</em>: <span data-zh="第九届亚太地区大学生数学建模竞赛国际一等奖" data-en="First Prize, 9th Asia-Pacific Mathematical Contest in Modeling">First Prize, 9th Asia-Pacific Mathematical Contest in Modeling</span></li>
+              <li><em>2019</em>: <span data-zh="第十届中国大学生服务外包创新创业大赛全国一等奖" data-en="First Prize, 10th China College Students Outsourcing Innovation and Entrepreneurship Competition (National)">First Prize, 10th China College Students Outsourcing Innovation and Entrepreneurship Competition (National)</span></li>
+              <li><em>2019</em>: <span data-zh="计算机程序设计能力PAT甲级满分 (1/1085)" data-en="Full Score in Programming Ability Test (PAT) Level A (1/1085)">Full Score in Programming Ability Test (PAT) Level A (1/1085)</span></li>
+              <li><em>2018</em>: <span data-zh="中国CCPC大学生程序设计竞赛三等奖（队长）" data-en="Third Prize, China Collegiate Programming Contest (CCPC) (Team Leader)">Third Prize, China Collegiate Programming Contest (CCPC) (Team Leader)</span></li>
+              <li><em>2018</em>: <span data-zh="浙江省ACM大学生程序设计竞赛三等奖" data-en="Third Prize, Zhejiang Province ACM Collegiate Programming Contest">Third Prize, Zhejiang Province ACM Collegiate Programming Contest</span></li>
+</ul>
+
+            <h1 id="skills"><i class="fas fa-tools"></i> <span data-zh="职业技能" data-en="Professional Skills">Professional Skills</span></h1>
+            <ul>
+              <li data-zh="具备良好的计算机编程能力，有CCPC、ACM大学生编程设计竞赛培训和获奖经历。" data-en="Strong computer programming skills with training and award experience in CCPC and ACM collegiate programming competitions.">Strong computer programming skills with training and award experience in CCPC and ACM collegiate programming competitions.</li>
+              <li data-zh="在ICRA、IROS、AAAI、IJCAI、NeurIPS等机器人和人工智能领域学术会议上有优秀论文发表。" data-en="Published excellent papers at top-tier robotics and AI conferences including ICRA, IROS, AAAI, IJCAI, and NeurIPS.">Published excellent papers at top-tier robotics and AI conferences including ICRA, IROS, AAAI, IJCAI, and NeurIPS.</li>
+              <li data-zh="熟悉Linux、ROS操作系统，代码规范良好，有较强的工程实现能力。" data-en="Proficient in Linux and ROS operating systems, with good code standards and strong engineering implementation capabilities.">Proficient in Linux and ROS operating systems, with good code standards and strong engineering implementation capabilities.</li>
+              <li data-zh="熟悉IsaacGym/Sim、MuJoCo等仿真平台，具备强化学习Sim-to-Real的真机落地经验。" data-en="Familiar with simulation platforms such as IsaacGym/Sim and MuJoCo, with experience in Sim-to-Real transfer for reinforcement learning on real robots.">Familiar with simulation platforms such as IsaacGym/Sim and MuJoCo, with experience in Sim-to-Real transfer for reinforcement learning on real robots.</li>
+              <li data-zh="具备较强的问题解决能力和自我学习能力，能快速适应新技术和新工具，具备良好的沟通协作能力，能够高效地与开发、运营等团队合作。具备较强的表达和组织能力。" data-en="Strong problem-solving and self-learning abilities, able to quickly adapt to new technologies and tools. Excellent communication and collaboration skills, capable of working efficiently with development and operations teams. Strong presentation and organizational skills.">Strong problem-solving and self-learning abilities, able to quickly adapt to new technologies and tools. Excellent communication and collaboration skills, capable of working efficiently with development and operations teams. Strong presentation and organizational skills.</li>
+            </ul>
+
+            <h1 id="education"><i class="fas fa-graduation-cap"></i> <span data-zh="教育背景" data-en="Education">Education</span></h1>
+<ul>
+              <li><em data-zh="在读" data-en="In Progress">In Progress</em>, <span data-zh="国防科技大学，计算机科学与技术，博士研究生" data-en="Ph.D. in Computer Science and Technology, National University of Defense Technology">Ph.D. in Computer Science and Technology, National University of Defense Technology</span></li>
+              <li><em data-zh="实习交流" data-en="Visiting">Visiting</em>, <span data-zh="北京大学-灵初智能联合实验室，导师：杨耀东教授" data-en="Peking University - PKU-Psibot Joint Laboratory, Advisor: Prof. Yaodong Yang">Peking University - Psibot Joint Laboratory, Advisor: Prof. Yaodong Yang</span></l
+</ul>
+
+          </section>
+        </div>
+      </article>
+    </div>
+
+    <script>
+      // Language switching function
+      function switchLang(lang) {
+        // Update active button
+        document.querySelectorAll('.lang-btn').forEach(btn => {
+          btn.classList.remove('active');
+        });
+        event.target.classList.add('active');
+        
+        // Update all elements with data-zh and data-en attributes
+        document.querySelectorAll('[data-zh]').forEach(element => {
+          const content = lang === 'zh' ? element.getAttribute('data-zh') : element.getAttribute('data-en');
+          // Check if content contains HTML tags
+          if (content && content.includes('<')) {
+            element.innerHTML = content;
+          } else {
+            element.textContent = content;
+          }
+        });
+        
+        // Update HTML lang attribute
+        document.documentElement.lang = lang === 'zh' ? 'zh-CN' : 'en';
+        
+        // Save preference to localStorage
+        localStorage.setItem('preferredLang', lang);
+      }
+      
+      // Initialize language on page load
+      function initLang() {
+        // Always default to English - ignore saved preference
+        const lang = 'en';
+        
+        // Update all elements with data-zh and data-en attributes
+        document.querySelectorAll('[data-zh]').forEach(element => {
+          const content = lang === 'zh' ? element.getAttribute('data-zh') : element.getAttribute('data-en');
+          // Check if content contains HTML tags
+          if (content && content.includes('<')) {
+            element.innerHTML = content;
+          } else {
+            element.textContent = content;
+          }
+        });
+        // Update HTML lang attribute
+        document.documentElement.lang = lang === 'zh' ? 'zh-CN' : 'en';
+        // Update active button
+        document.querySelectorAll('.lang-btn').forEach(btn => {
+          btn.classList.remove('active');
+        });
+        const langBtn = lang === 'zh' 
+          ? document.querySelector('.lang-btn:first-child')
+          : document.querySelector('.lang-btn:last-child');
+        if (langBtn) {
+          langBtn.classList.add('active');
+        }
+      }
+      
+      // Initialize language immediately when script loads
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initLang);
+      } else {
+        initLang();
+      }
+      
+      // Load saved language preference on page load
+      window.addEventListener('DOMContentLoaded', function() {
+        
+        // Try to load Google Scholar citations
+        try {
+          fetch('https://raw.githubusercontent.com/caiyishuai/caiyishuai.github.io/google-scholar-stats/gs_data.json')
+            .then(response => response.json())
+            .then(data => {
+              const totalCit = document.getElementById('total_cit');
+              if (totalCit && data.citedby) {
+                totalCit.textContent = data.citedby;
+              }
+            })
+            .catch(err => {
+              console.log('Could not load citation data');
+            });
+        } catch (e) {
+          console.log('Citation data not available');
+        }
+      });
+    </script>
+    
+    <!-- Lightbox for image zoom -->
+    <div class="lightbox" id="lightbox" onclick="closeLightbox()">
+      <img id="lightbox-img" src="" alt="">
+    </div>
+    
+    <script>
+      // Image lightbox functionality
+      document.querySelectorAll('.paper-box-image img').forEach(img => {
+        img.addEventListener('click', function(e) {
+          e.stopPropagation();
+          const lightbox = document.getElementById('lightbox');
+          const lightboxImg = document.getElementById('lightbox-img');
+          lightboxImg.src = this.src;
+          lightbox.classList.add('active');
+          document.body.style.overflow = 'hidden'; // Prevent background scrolling
+        });
+      });
+      
+      function closeLightbox() {
+        const lightbox = document.getElementById('lightbox');
+        lightbox.classList.remove('active');
+        document.body.style.overflow = ''; // Restore scrolling
+      }
+      
+      // Close lightbox on Escape key
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+          closeLightbox();
+        }
+      });
+    </script>
+  </body>
 </html>
