@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "WebSearch",
+      "WebFetch(domain:arxiv.org)",
+      "WebFetch(domain:github.com)",
+      "WebFetch(domain:safevla.github.io)",
+      "WebFetch(domain:vla-arena.github.io)"
+    ]
+  }
+}
