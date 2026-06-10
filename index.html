@@ -24,202 +24,757 @@
         box-sizing: border-box;
       }
 
+      :root {
+        --accent: #8b1a1a;          /* Stanford-cardinal-ish, classic academic red */
+        --accent-soft: #b03a2e;
+        --accent-deep: #6a1212;
+        --gold: #c9a44a;
+        --ink: #1a1a1a;
+        --ink-soft: #2c2c2c;
+        --muted: #6b6b6b;
+        --line: #e5e5e5;
+        --line-soft: #efece4;
+        --bg: #fdfdfb;              /* warm off-white, paper feel */
+        --bg-soft: #f6f4ee;
+        --bg-tint: #fbf6f3;
+        --shadow-sm: 0 1px 2px rgba(20, 10, 10, 0.04);
+        --shadow-md: 0 6px 18px -8px rgba(139, 26, 26, 0.18), 0 1px 0 rgba(0,0,0,0.02);
+        --shadow-lg: 0 14px 36px -14px rgba(139, 26, 26, 0.28), 0 2px 6px rgba(0,0,0,0.04);
+        --serif: "Charter", "Georgia", "Cambria", "Times New Roman", "Songti SC", "Source Han Serif SC", serif;
+        --sans: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", Arial, sans-serif;
+      }
+
+      /* === Dark theme overrides === */
+      [data-theme="dark"] {
+        --accent: #d97373;            /* lifted cardinal so it pops on dark */
+        --accent-soft: #e89090;
+        --accent-deep: #b14444;
+        --gold: #d9b56a;
+        --ink: #ececec;
+        --ink-soft: #d4d4d4;
+        --muted: #9a9a9a;
+        --line: #333335;
+        --line-soft: #2a2a2c;
+        --bg: #131316;
+        --bg-soft: #1c1c20;
+        --bg-tint: #1f1d24;
+        --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
+        --shadow-md: 0 6px 18px -8px rgba(0, 0, 0, 0.6), 0 1px 0 rgba(255,255,255,0.02);
+        --shadow-lg: 0 14px 36px -14px rgba(0, 0, 0, 0.7), 0 2px 6px rgba(0,0,0,0.4);
+      }
+
+      [data-theme="dark"] body {
+        background-image:
+          radial-gradient(circle at 12% 8%, rgba(217, 115, 115, 0.06) 0, transparent 38%),
+          radial-gradient(circle at 92% 6%, rgba(217, 181, 106, 0.05) 0, transparent 32%);
+      }
+
+      [data-theme="dark"] .masthead {
+        background: rgba(19, 19, 22, 0.78);
+      }
+
+      [data-theme="dark"] .masthead.scrolled {
+        background: rgba(19, 19, 22, 0.94);
+        border-bottom-color: rgba(255, 255, 255, 0.06);
+      }
+
+      [data-theme="dark"] .lang-switcher,
+      [data-theme="dark"] .theme-toggle {
+        background: rgba(255, 255, 255, 0.04);
+      }
+
+      [data-theme="dark"] .paper-box.featured {
+        background: linear-gradient(180deg, #221f18 0%, #1f1c1a 100%);
+        border-left-color: rgba(217, 181, 106, 0.35);
+      }
+
+      [data-theme="dark"] .paper-box:hover {
+        background: linear-gradient(180deg, var(--bg-tint) 0%, var(--bg-soft) 100%);
+        box-shadow: 0 14px 32px -14px rgba(0, 0, 0, 0.7), 0 4px 12px -6px rgba(0, 0, 0, 0.4);
+      }
+
+      [data-theme="dark"] .paper-box.featured:hover {
+        background: linear-gradient(180deg, #2a2520 0%, var(--bg-tint) 100%);
+      }
+
+      [data-theme="dark"] .author__avatar img,
+      [data-theme="dark"] .paper-box-image > div {
+        box-shadow: 0 6px 20px -8px rgba(0, 0, 0, 0.7);
+      }
+
+      [data-theme="dark"] .site-footer {
+        background: linear-gradient(180deg, var(--bg) 0%, var(--bg-soft) 100%);
+      }
+
+      /* Paper resource buttons (Project / arXiv / Code / BibTeX) in dark mode */
+      [data-theme="dark"] .paper-links a,
+      [data-theme="dark"] .paper-links button.bib-toggle {
+        color: #ececec;
+        background: linear-gradient(180deg, #25252a 0%, #1d1d21 100%);
+        border-color: rgba(255, 255, 255, 0.14);
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+      }
+
+      [data-theme="dark"] .paper-links a:hover,
+      [data-theme="dark"] .paper-links button.bib-toggle:hover,
+      [data-theme="dark"] .paper-links button.bib-toggle.active {
+        color: #fff;
+        background: linear-gradient(135deg, var(--accent) 0%, var(--accent-deep) 100%);
+        border-color: var(--accent);
+        box-shadow: 0 6px 14px -4px rgba(217, 115, 115, 0.5);
+      }
+
+      /* BibTeX code block in dark mode */
+      [data-theme="dark"] .bibtex-block {
+        background: linear-gradient(180deg, #1a1a1e 0%, #16161a 100%);
+        border-color: rgba(255, 255, 255, 0.08);
+        border-left-color: var(--accent);
+        color: #d4d4d4;
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.03);
+      }
+
+      /* Research interest chips (Embodied AI / LLMs / ...) in dark mode */
+      [data-theme="dark"] .research-chip {
+        color: #ececec;
+        background: linear-gradient(180deg, #25252a 0%, #1d1d21 100%);
+        border-color: rgba(255, 255, 255, 0.14);
+      }
+
+      [data-theme="dark"] .research-chip:hover {
+        color: #fff;
+        background: linear-gradient(135deg, var(--accent) 0%, var(--accent-deep) 100%);
+        border-color: var(--accent);
+        box-shadow: 0 4px 10px -3px rgba(217, 115, 115, 0.5);
+      }
+
+      /* Conference cards (NeurIPS / ICRA / ...) in dark mode */
+      [data-theme="dark"] .conf-card {
+        background: linear-gradient(180deg, #25252a 0%, #1d1d21 100%);
+        border-color: rgba(255, 255, 255, 0.12);
+      }
+
+      [data-theme="dark"] .conf-card .conf-name {
+        color: #ececec;
+      }
+
+      [data-theme="dark"] .conf-card .conf-year {
+        color: #9a9a9a;
+      }
+
+      [data-theme="dark"] .conf-card:hover {
+        border-color: var(--accent);
+        background: linear-gradient(180deg, #2c2024 0%, #271a1d 100%);
+        box-shadow: 0 6px 14px -6px rgba(217, 115, 115, 0.4);
+      }
+
+      [data-theme="dark"] .conf-card:hover .conf-name {
+        color: var(--accent-soft);
+      }
+
+      /* About bio quote block in dark mode */
+      [data-theme="dark"] .about-bio {
+        color: #d4d4d4;
+        background: linear-gradient(180deg, rgba(40, 30, 30, 0.55) 0%, rgba(30, 26, 28, 0.35) 100%);
+        border-left-color: var(--accent);
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04), 0 1px 2px rgba(0, 0, 0, 0.3);
+      }
+
+      [data-theme="dark"] .about-bio::before {
+        color: var(--accent);
+        opacity: 0.35;
+      }
+
+      [data-theme="dark"] .about-bio strong {
+        color: var(--accent-soft);
+      }
+
+      [data-theme="dark"] .about-bio a {
+        color: var(--accent-soft);
+        border-bottom-color: rgba(232, 144, 144, 0.5);
+      }
+
+      [data-theme="dark"] .about-bio a:hover {
+        color: #fff;
+        border-bottom-color: var(--accent);
+        background: rgba(217, 115, 115, 0.14);
+      }
+
+      /* Smooth transition on theme toggle */
+      body, .masthead, .paper-box, .lang-switcher, .theme-toggle, .site-footer {
+        transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+      }
+
+      /* Top accent bar — academic red ribbon */
+      body::before {
+        content: "";
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 3px;
+        background: linear-gradient(90deg, var(--accent-deep) 0%, var(--accent) 45%, var(--accent-soft) 75%, var(--gold) 100%);
+        z-index: 1100;
+        pointer-events: none;
+      }
+
       body {
-        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Helvetica Neue", Helvetica, Arial, sans-serif;
-        line-height: 1.6;
-        color: #333;
-        background-color: #fff;
+        font-family: var(--serif);
+        line-height: 1.7;
+        color: var(--ink);
+        background-color: var(--bg);
+        background-image:
+          radial-gradient(circle at 12% 8%, rgba(139, 26, 26, 0.045) 0, transparent 38%),
+          radial-gradient(circle at 92% 6%, rgba(201, 164, 74, 0.05) 0, transparent 32%);
+        background-attachment: fixed;
+        font-size: 16px;
       }
-      
+
+      ::selection {
+        background: rgba(139, 26, 26, 0.18);
+        color: var(--ink);
+      }
+
+      /* Refined scrollbar */
+      ::-webkit-scrollbar { width: 10px; height: 10px; }
+      ::-webkit-scrollbar-track { background: var(--bg-soft); }
+      ::-webkit-scrollbar-thumb {
+        background: linear-gradient(180deg, #b34141 0%, var(--accent) 100%);
+        border-radius: 6px;
+        border: 2px solid var(--bg-soft);
+      }
+      ::-webkit-scrollbar-thumb:hover { background: var(--accent-deep); }
+
       a {
-        color: #3498db;
+        color: var(--accent);
         text-decoration: none;
+        transition: color 0.15s ease;
       }
-      
+
       a:hover {
         text-decoration: underline;
-        color: #2980b9;
+        color: var(--accent-soft);
       }
-      
+
       /* Masthead Navigation */
       .masthead {
-        border-bottom: 1px solid #e8e8e8;
-        background-color: #fff;
+        border-bottom: 1px solid var(--line);
+        background: rgba(253, 253, 251, 0.78);
+        backdrop-filter: saturate(180%) blur(14px);
+        -webkit-backdrop-filter: saturate(180%) blur(14px);
         position: sticky;
         top: 0;
         z-index: 1000;
-        box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        transition: box-shadow 0.3s ease, background 0.3s ease, border-color 0.3s ease;
       }
-      
+
+      .masthead.scrolled {
+        box-shadow: 0 4px 22px -10px rgba(20, 10, 10, 0.14);
+        background: rgba(253, 253, 251, 0.94);
+        border-bottom-color: rgba(0, 0, 0, 0.07);
+      }
+
+      /* Reading progress bar at the bottom edge of the masthead */
+      .masthead::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: -1px;
+        height: 2px;
+        width: var(--scroll-progress, 0%);
+        background: linear-gradient(90deg, var(--accent) 0%, var(--gold) 100%);
+        transition: width 0.08s linear;
+        box-shadow: 0 0 8px rgba(139, 26, 26, 0.35);
+        pointer-events: none;
+      }
+
       .masthead__inner-wrap {
-        max-width: 1200px;
+        max-width: 1240px;
         margin: 0 auto;
         padding: 0 20px;
       }
-      
+
       .masthead__menu {
         display: flex;
         justify-content: space-between;
         align-items: center;
         padding: 10px 0;
+        gap: 18px;
       }
-      
+
       .greedy-nav {
         display: flex;
         width: 100%;
         justify-content: space-between;
         align-items: center;
+        gap: 18px;
       }
-      
+
       .visible-links {
         display: flex;
         list-style: none;
         margin: 0;
         padding: 0;
-        gap: 20px;
+        gap: 2px;
         flex-wrap: wrap;
+        align-items: center;
       }
-      
+
       .masthead__menu-item {
-        font-size: 14px;
+        font-size: 13.5px;
+        font-family: var(--sans);
       }
-      
+
       .masthead__menu-item a {
-        color: #333;
-        padding: 5px 10px;
+        color: var(--ink-soft);
+        padding: 7px 13px;
         display: block;
         position: relative;
-        transition: color 0.3s;
+        font-weight: 500;
+        letter-spacing: 0.2px;
+        border-radius: 4px;
+        transition: color 0.18s ease, background-color 0.18s ease;
       }
-      
-      .masthead__menu-item a:hover {
-        color: #3498db;
-        text-decoration: none;
-      }
-      
-      .masthead__menu-item a:hover::after {
+
+      .masthead__menu-item a::after {
         content: "";
         position: absolute;
-        bottom: -1px;
-        left: 10px;
-        right: 10px;
-        height: 3px;
-        background-color: #3498db;
-        border-radius: 2px 2px 0 0;
+        left: 13px;
+        right: 13px;
+        bottom: 3px;
+        height: 1.5px;
+        background: linear-gradient(90deg, var(--accent) 0%, var(--gold) 100%);
+        border-radius: 1px;
+        transform: scaleX(0);
+        transform-origin: left center;
+        transition: transform 0.28s cubic-bezier(0.65, 0, 0.35, 1);
       }
-      
+
+      .masthead__menu-item a:hover {
+        color: var(--accent);
+        background-color: rgba(139, 26, 26, 0.045);
+        text-decoration: none;
+      }
+
+      .masthead__menu-item a:hover::after,
+      .masthead__menu-item a.is-active::after {
+        transform: scaleX(1);
+      }
+
+      .masthead__menu-item a.is-active {
+        color: var(--accent);
+        background-color: rgba(139, 26, 26, 0.06);
+      }
+
+      /* Brand: name + accent dot. Separator after it on the right. */
       .masthead__menu-home-item {
-        font-weight: bold;
+        position: relative;
+        margin-right: 8px;
+        padding-right: 14px;
       }
-      
+
+      .masthead__menu-home-item::after {
+        content: "";
+        position: absolute;
+        right: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 1px;
+        height: 18px;
+        background: var(--line);
+      }
+
+      .masthead__menu-home-item a {
+        font-weight: 700;
+        color: var(--ink);
+        font-family: var(--serif);
+        font-size: 17px;
+        letter-spacing: 0.3px;
+        padding: 6px 4px 6px 0;
+        border-radius: 0;
+        transition: color 0.2s ease;
+      }
+
+      .masthead__menu-home-item a:hover {
+        background: transparent;
+        color: var(--accent-deep);
+      }
+
+      .masthead__menu-home-item a::after { display: none; }
+
+      .masthead__menu-home-item a::before {
+        content: "";
+        display: inline-block;
+        width: 7px;
+        height: 7px;
+        margin-right: 9px;
+        margin-bottom: 2px;
+        border-radius: 50%;
+        background: var(--accent);
+        box-shadow: 0 0 0 3px rgba(139, 26, 26, 0.14);
+        vertical-align: middle;
+        transition: box-shadow 0.25s ease, transform 0.25s ease;
+      }
+
+      .masthead__menu-home-item a:hover::before {
+        box-shadow: 0 0 0 5px rgba(139, 26, 26, 0.18);
+        transform: scale(1.05);
+      }
+
+      /* Nav toolbar wraps theme + lang */
+      .nav-toolbar {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      /* Theme toggle button (sun/moon) */
+      .theme-toggle {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        border: 1px solid var(--line);
+        background: rgba(255, 255, 255, 0.5);
+        color: var(--muted);
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 12px;
+        position: relative;
+        transition: color 0.22s ease, background-color 0.22s ease, border-color 0.22s ease, transform 0.25s ease;
+      }
+
+      .theme-toggle:hover {
+        color: var(--accent);
+        border-color: var(--accent);
+        transform: rotate(-12deg);
+      }
+
+      .theme-toggle .theme-icon-dark,
+      .theme-toggle .theme-icon-light {
+        position: absolute;
+        transition: opacity 0.25s ease, transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+      }
+
+      /* In light theme: show moon (i.e. switch -> dark) */
+      .theme-toggle .theme-icon-light { opacity: 0; transform: rotate(-90deg) scale(0.6); }
+      .theme-toggle .theme-icon-dark  { opacity: 1; transform: rotate(0) scale(1); }
+
+      [data-theme="dark"] .theme-toggle .theme-icon-light { opacity: 1; transform: rotate(0) scale(1); }
+      [data-theme="dark"] .theme-toggle .theme-icon-dark  { opacity: 0; transform: rotate(90deg) scale(0.6); }
+
+      /* Language switcher — small toolbar style */
       .lang-switcher {
-        display: flex;
-        gap: 5px;
+        display: inline-flex;
+        align-items: center;
+        gap: 0;
+        font-family: var(--sans);
+        padding: 3px;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.5);
       }
-      
+
+      .lang-switcher .lang-icon {
+        font-size: 10.5px;
+        color: var(--muted);
+        margin: 0 6px 0 8px;
+      }
+
       .lang-btn {
         background: transparent;
-        border: 1px solid #ddd;
-        color: #333;
-        padding: 5px 12px;
-        border-radius: 3px;
+        border: none;
+        color: var(--muted);
+        padding: 3px 11px;
         cursor: pointer;
-        font-size: 13px;
-        transition: all 0.3s;
+        font-size: 11.5px;
+        font-weight: 600;
+        letter-spacing: 0.4px;
+        border-radius: 999px;
+        transition: color 0.18s ease, background-color 0.18s ease;
         white-space: nowrap;
-        min-width: 70px;
+        min-width: 60px;
         text-align: center;
       }
-      
+
       .lang-btn:hover {
-        background: #f5f5f5;
-        border-color: #3498db;
+        color: var(--ink);
+        background-color: rgba(0, 0, 0, 0.04);
       }
-      
+
       .lang-btn.active {
-        background: #3498db;
-        color: white;
-        border-color: #3498db;
+        background: var(--accent);
+        color: #fff;
+        box-shadow: 0 1px 4px rgba(139, 26, 26, 0.25);
+      }
+
+      .lang-btn.active:hover {
+        background: var(--accent-deep, var(--accent));
+        color: #fff;
       }
       
       /* Main Layout */
       #main {
-        max-width: 1200px;
+        max-width: 1240px;
         margin: 0 auto;
-        padding: 20px;
+        padding: 32px 20px 60px;
         display: flex;
-        gap: 30px;
+        gap: 52px;
         align-items: flex-start;
       }
-      
+
       /* Sidebar */
       .sidebar {
-        width: 280px;
+        width: 240px;
         flex-shrink: 0;
         position: sticky;
-        top: 80px;
+        top: 72px;
         align-self: flex-start;
       }
-      
+
       .profile_box {
         margin-bottom: 20px;
       }
-      
+
       .author__avatar {
-        margin-bottom: 15px;
+        position: relative;
+        width: 200px;
+        margin-bottom: 18px;
       }
-      
+
+      .author__avatar::before {
+        content: "";
+        position: absolute;
+        inset: -6px;
+        border-radius: 8px;
+        background: linear-gradient(135deg, rgba(139, 26, 26, 0.18) 0%, rgba(201, 164, 74, 0.15) 100%);
+        z-index: 0;
+        opacity: 0;
+        transition: opacity 0.4s ease;
+      }
+
+      .author__avatar:hover::before {
+        opacity: 1;
+      }
+
       .author__avatar img {
-        width: 175px;
-        height: 175px;
-        border-radius: 50%;
-        border: 3px solid #3498db;
+        position: relative;
+        width: 200px;
+        height: 200px;
+        border-radius: 6px;
+        border: 1px solid var(--line);
         display: block;
-        box-shadow: 0 2px 8px rgba(52, 152, 219, 0.2);
         object-fit: cover;
+        box-shadow: 0 4px 14px -6px rgba(20, 10, 10, 0.18);
+        transition: transform 0.4s ease, box-shadow 0.4s ease;
+        z-index: 1;
       }
-      
+
+      .author__avatar:hover img {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 28px -10px rgba(139, 26, 26, 0.42);
+      }
+
       .author__content {
-        margin-bottom: 15px;
+        margin-bottom: 14px;
       }
-      
+
       .author__name {
-        font-size: 24px;
-        font-weight: bold;
-        margin-bottom: 5px;
-        color: #333;
+        font-family: var(--serif);
+        font-size: 22px;
+        font-weight: 700;
+        margin-bottom: 8px;
+        color: var(--ink);
+        letter-spacing: 0.3px;
+        position: relative;
+        display: inline-block;
+        padding-bottom: 6px;
       }
-      
-      .author__bio {
-        font-size: 14px;
-        color: #666;
-        margin-bottom: 10px;
+
+      .author__name::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: 36px;
+        height: 2px;
+        background: linear-gradient(90deg, var(--accent) 0%, var(--gold) 100%);
+        border-radius: 2px;
       }
-      
+
+      /* One-line academic title under the name */
+      .author__title {
+        font-family: var(--sans);
+        font-size: 13px;
+        line-height: 1.5;
+        color: var(--muted);
+        font-weight: 500;
+        letter-spacing: 0.2px;
+        margin: 6px 0 0;
+      }
+
+      /* Sidebar list reset */
       .author__urls {
+        list-style: none;
+        padding: 0;
+        margin: 18px 0 0;
+      }
+
+      .author__urls > li.sidebar-section {
+        list-style: none;
+        margin: 0 0 14px;
+        padding: 0 0 14px;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .author__urls > li.sidebar-section:last-child {
+        border-bottom: none;
+        padding-bottom: 0;
+        margin-bottom: 0;
+      }
+
+      /* Section headline (Affiliations / Research Interests / Contact) */
+      .sidebar-label {
+        display: flex;
+        align-items: center;
+        gap: 7px;
+        font-family: var(--sans);
+        font-size: 10.5px;
+        font-weight: 700;
+        letter-spacing: 1.6px;
+        text-transform: uppercase;
+        color: var(--accent);
+        margin: 0 0 10px;
+      }
+
+      .sidebar-label i {
+        font-size: 11px;
+        color: var(--accent);
+        opacity: 0.85;
+        width: auto;
+        margin: 0;
+      }
+
+      .sidebar-label span {
+        position: relative;
+        padding-right: 10px;
+      }
+
+      .sidebar-label span::after {
+        content: "";
+        position: absolute;
+        right: -4px;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 22px;
+        height: 1px;
+        background: linear-gradient(90deg, var(--line) 0%, transparent 100%);
+      }
+
+      /* Affiliations: role + org per row */
+      .affil-list {
         list-style: none;
         padding: 0;
         margin: 0;
       }
-      
-      .author__urls li {
-        margin-bottom: 8px;
-        font-size: 14px;
+
+      .affil-list li {
+        position: relative;
+        padding: 4px 0 4px 14px;
+        font-family: var(--sans);
+        font-size: 13px;
+        line-height: 1.55;
+      }
+
+      .affil-list li::before {
+        content: "";
+        position: absolute;
+        left: 2px;
+        top: 13px;
+        width: 5px;
+        height: 5px;
+        border-radius: 50%;
+        background: var(--accent);
+        opacity: 0.55;
+      }
+
+      .affil-list li + li {
+        margin-top: 2px;
+      }
+
+      .affil-list .affil-role {
+        display: block;
+        font-size: 10.5px;
+        font-weight: 700;
+        letter-spacing: 0.8px;
+        text-transform: uppercase;
+        color: var(--muted);
+        margin-bottom: 1px;
+      }
+
+      .affil-list .affil-org {
+        display: block;
+        font-size: 13.5px;
+        font-weight: 600;
+        color: var(--ink);
+        line-height: 1.4;
+        border-bottom: 1px solid transparent;
+        transition: color 0.2s ease, border-color 0.2s ease;
+        text-decoration: none;
+      }
+
+      .affil-list .affil-org:hover {
+        color: var(--accent);
+        border-bottom-color: var(--accent);
+        text-decoration: none;
+      }
+
+      /* Contact list (location / email / scholar) */
+      .contact-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+
+      .contact-list li {
+        display: flex;
+        align-items: center;
+        gap: 9px;
+        padding: 3px 0;
+        font-family: var(--sans);
+        font-size: 13px;
         line-height: 1.5;
+        color: var(--ink-soft);
+        transition: transform 0.18s ease;
       }
-      
-      .author__urls li i {
-        width: 20px;
-        margin-right: 8px;
-        color: #666;
+
+      .contact-list li:hover {
+        transform: translateX(2px);
       }
-      
-      .author__urls li a {
-        color: #333;
+
+      .contact-list li i {
+        width: 14px;
+        font-size: 12.5px;
+        color: var(--accent);
+        opacity: 0.85;
+        margin: 0;
+        text-align: center;
       }
-      
-      .author__urls li a:hover {
-        color: #3498db;
+
+      .contact-list li a {
+        color: var(--ink-soft);
+        font-weight: 500;
+        border-bottom: 1px solid transparent;
+        transition: color 0.2s ease, border-color 0.2s ease;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 9px;
+      }
+
+      .contact-list li a:hover {
+        color: var(--accent);
+        border-bottom-color: var(--accent);
         text-decoration: none;
       }
       
@@ -237,7 +792,60 @@
         font-size: 15px;
         line-height: 1.8;
       }
-      
+
+      /* About-me hero paragraph */
+      .about-bio {
+        font-family: var(--serif);
+        font-size: 16.5px;
+        line-height: 1.85;
+        color: var(--ink-soft);
+        margin: 6px 0 28px;
+        padding: 18px 22px 18px 22px;
+        position: relative;
+        background: linear-gradient(180deg, rgba(251, 246, 243, 0.55) 0%, rgba(246, 244, 238, 0.35) 100%);
+        border-radius: 6px;
+        border-left: 3px solid var(--accent);
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.6), 0 1px 2px rgba(20, 10, 10, 0.025);
+        text-align: justify;
+        text-justify: inter-word;
+        hyphens: auto;
+      }
+
+      .about-bio::before {
+        content: "\201C";
+        position: absolute;
+        top: -6px;
+        left: 14px;
+        font-family: "Charter", "Georgia", serif;
+        font-size: 56px;
+        line-height: 1;
+        color: var(--accent);
+        opacity: 0.22;
+        font-weight: 700;
+        pointer-events: none;
+      }
+
+      .about-bio strong {
+        color: var(--accent);
+        font-weight: 700;
+        letter-spacing: 0.1px;
+      }
+
+      .about-bio a {
+        color: var(--accent);
+        font-weight: 600;
+        border-bottom: 1px dotted rgba(139, 26, 26, 0.45);
+        transition: border-color 0.2s ease, color 0.2s ease, background 0.2s ease;
+        padding: 0 1px;
+      }
+
+      .about-bio a:hover {
+        color: var(--accent-deep);
+        border-bottom: 1px solid var(--accent-deep);
+        background: rgba(139, 26, 26, 0.05);
+        text-decoration: none;
+      }
+
       .anchor {
         display: block;
         position: relative;
@@ -246,73 +854,306 @@
       }
       
       /* Section Headings */
+      /* Section counter (01 / 02 / ...) on the right side of each h1 */
+      .page__content { counter-reset: section; }
+
       h1 {
-        font-size: 28px;
-        margin-top: 30px;
-        margin-bottom: 15px;
-        color: #333;
-        font-weight: bold;
+        font-family: var(--serif);
+        font-size: 23px;
+        margin-top: 42px;
+        margin-bottom: 18px;
+        color: var(--ink);
+        font-weight: 700;
+        letter-spacing: 0.3px;
+        padding: 4px 70px 10px 14px;
+        position: relative;
+        border-bottom: 1px solid var(--line);
+        counter-increment: section;
       }
-      
+
+      h1::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 6px;
+        bottom: 14px;
+        width: 4px;
+        border-radius: 2px;
+        background: linear-gradient(180deg, var(--accent) 0%, var(--accent-deep) 100%);
+        box-shadow: 0 1px 3px rgba(139, 26, 26, 0.35);
+      }
+
+      /* Section number badge: "— 01" small caps on the right */
+      h1::after {
+        content: counter(section, decimal-leading-zero);
+        position: absolute;
+        right: 0;
+        top: 50%;
+        transform: translateY(-58%);
+        font-family: var(--sans);
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 2px;
+        color: var(--muted);
+        opacity: 0.7;
+        padding-left: 28px;
+        background: linear-gradient(90deg, transparent 0%, var(--line) 14px, var(--line) 18px, transparent 18px) no-repeat 0 50% / 22px 1px;
+      }
+
       h1:first-of-type {
         margin-top: 0;
       }
-      
+
       h1 i {
-        margin-right: 8px;
-        color: #3498db;
+        margin-right: 10px;
+        color: var(--accent);
+        font-size: 18px;
+        transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+        display: inline-block;
       }
-      
-      /* News List */
+
+      h1:hover i {
+        transform: rotate(-8deg) scale(1.15);
+      }
+
+      /* News & generic lists */
       ul {
         list-style: none;
         padding-left: 0;
       }
-      
-      ul li {
-        margin-bottom: 10px;
+
+      /* News section: render the list right after #news as a vertical timeline */
+      #news + ul {
+        position: relative;
+        padding-left: 22px;
+        margin-top: 8px;
+      }
+
+      #news + ul::before {
+        content: "";
+        position: absolute;
+        left: 6px;
+        top: 8px;
+        bottom: 8px;
+        width: 2px;
+        border-radius: 2px;
+        background: linear-gradient(180deg, var(--accent) 0%, var(--gold) 60%, transparent 100%);
+        opacity: 0.55;
+      }
+
+      #news + ul > li {
         padding-left: 0;
+        margin-bottom: 12px;
         position: relative;
       }
-      
+
+      /* Override generic dot for news timeline */
+      .page__content > #news + ul > li::before {
+        content: "";
+        position: absolute;
+        left: -20px;
+        top: 0.6em;
+        width: 9px;
+        height: 9px;
+        border-radius: 50%;
+        background: var(--bg);
+        border: 2px solid var(--accent);
+        box-shadow: 0 0 0 3px rgba(139, 26, 26, 0.10);
+        transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+      }
+
+      .page__content > #news + ul > li:hover {
+        padding-left: 4px;
+      }
+
+      .page__content > #news + ul > li:hover::before {
+        background: var(--accent);
+        transform: scale(1.15);
+        box-shadow: 0 0 0 5px rgba(139, 26, 26, 0.18);
+      }
+
+      ul li {
+        margin-bottom: 10px;
+        padding-left: 14px;
+        position: relative;
+        transition: padding-left 0.2s ease;
+      }
+
+      ul li::marker { content: ""; }
+
+      /* small accent dot before list items (excluding paper-box internal lists) */
+      .page__content > ul > li::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 0.72em;
+        width: 5px;
+        height: 5px;
+        border-radius: 50%;
+        background: var(--accent);
+        box-shadow: 0 0 0 3px rgba(139, 26, 26, 0.12);
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+      }
+
+      .page__content > ul > li:hover {
+        padding-left: 18px;
+      }
+
+      .page__content > ul > li:hover::before {
+        transform: scale(1.25);
+        box-shadow: 0 0 0 4px rgba(139, 26, 26, 0.18);
+      }
+
       ul li em {
-        color: #666;
+        display: inline-block;
+        color: #fff;
+        background: linear-gradient(135deg, var(--accent-deep) 0%, var(--accent) 100%);
         font-style: normal;
-        font-weight: 500;
+        font-weight: 700;
+        font-size: 11.5px;
+        font-family: var(--sans);
+        margin-right: 10px;
+        min-width: 64px;
+        text-align: center;
+        padding: 1px 8px;
+        border-radius: 3px;
+        letter-spacing: 0.4px;
+        box-shadow: 0 2px 5px rgba(139, 26, 26, 0.22);
+        vertical-align: 1px;
+      }
+
+      /* Research interest chips */
+      .research-chips {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+        margin: 0;
+      }
+
+      .research-chip {
+        font-family: var(--sans);
+        font-size: 11.5px;
+        font-weight: 600;
+        padding: 3px 10px;
+        border-radius: 12px;
+        color: var(--ink-soft);
+        background: linear-gradient(180deg, #ffffff 0%, var(--bg-soft) 100%);
+        border: 1px solid var(--line);
+        transition: color 0.22s ease, border-color 0.22s ease, background 0.35s ease, transform 0.22s ease, box-shadow 0.22s ease;
+        cursor: default;
+        letter-spacing: 0.2px;
+        box-shadow: 0 1px 0 rgba(0, 0, 0, 0.02);
+      }
+
+      .research-chip:hover {
+        color: #fff;
+        border-color: var(--accent);
+        background: linear-gradient(135deg, var(--accent) 0%, var(--accent-deep) 100%);
+        transform: translateY(-1px);
+        box-shadow: 0 4px 10px -3px rgba(139, 26, 26, 0.45);
+      }
+
+      .research-chip i {
+        margin-right: 5px;
+        opacity: 0.85;
+        color: var(--accent);
+        transition: color 0.22s ease;
+      }
+
+      .research-chip:hover i {
+        color: #fff;
+        opacity: 1;
       }
       
       /* Paper Box */
       .paper-box {
         display: flex;
-        gap: 15px;
-        margin-bottom: 20px;
-        padding: 15px;
-        background: #f9f9f9;
-        border-radius: 5px;
-        border-left: 3px solid transparent;
-        transition: transform 0.3s ease, border-left-color 0.3s ease, background-color 0.2s ease;
+        gap: 24px;
+        margin-bottom: 22px;
+        padding: 18px 16px 18px 18px;
+        position: relative;
+        border-bottom: 1px dashed var(--line);
+        border-radius: 8px;
+        transition: background-color 0.28s ease, box-shadow 0.28s ease, transform 0.28s ease;
+      }
+
+      /* left vertical accent ribbon, slides in on hover */
+      .paper-box::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 18px;
+        bottom: 18px;
+        width: 3px;
+        border-radius: 2px;
+        background: linear-gradient(180deg, var(--accent) 0%, var(--accent-deep) 100%);
+        opacity: 0;
+        transform: scaleY(0.4);
+        transform-origin: top center;
+        transition: opacity 0.3s ease, transform 0.35s cubic-bezier(0.65, 0, 0.35, 1);
       }
 
       .paper-box:hover {
-        transform: translateX(10px);
-        border-left-color: #3498db;
-        background: #f5f5f5;
+        background: linear-gradient(180deg, var(--bg-tint) 0%, var(--bg-soft) 100%);
+        box-shadow: 0 14px 32px -14px rgba(139, 26, 26, 0.28), 0 4px 12px -6px rgba(20, 10, 10, 0.08);
+        transform: translateY(-3px);
       }
-      
+
+      .paper-box:hover::before {
+        opacity: 1;
+        transform: scaleY(1);
+      }
+
+      .paper-box:last-of-type {
+        border-bottom: none;
+      }
+
+      /* Featured highlight (Spotlight / Oral) — subtle gold corner accent */
+      .paper-box.featured {
+        background: linear-gradient(180deg, #fdfaf3 0%, #fbf6f3 100%);
+        border-left: 1px solid rgba(201, 164, 74, 0.25);
+      }
+
+      .paper-box.featured::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 56px;
+        height: 56px;
+        background:
+          linear-gradient(225deg, rgba(201, 164, 74, 0.55) 0%, rgba(201, 164, 74, 0.0) 55%);
+        border-top-right-radius: 8px;
+        pointer-events: none;
+      }
+
+      .paper-box.featured:hover {
+        background: linear-gradient(180deg, #fcf6e8 0%, var(--bg-tint) 100%);
+        box-shadow: 0 14px 36px -16px rgba(201, 164, 74, 0.4), 0 6px 18px -10px rgba(139, 26, 26, 0.22);
+      }
+
       .paper-box-image {
         flex-shrink: 0;
-        width: 400px;
+        width: 340px;
       }
-      
+
       .paper-box-image > div {
         position: relative;
         width: 100%;
         padding-top: 60%;
-        background: #e0e0e0;
-        border-radius: 3px;
+        background: var(--bg-soft);
+        border: 1px solid var(--line);
+        border-radius: 4px;
         overflow: hidden;
+        box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+        transition: box-shadow 0.3s ease, transform 0.3s ease;
       }
-      
+
+      .paper-box:hover .paper-box-image > div {
+        box-shadow: 0 8px 24px -8px rgba(0,0,0,0.18);
+        transform: translateY(-2px);
+      }
+
       .paper-box-image img {
         position: absolute;
         top: 0;
@@ -321,11 +1162,15 @@
         height: 100%;
         object-fit: cover;
         cursor: pointer;
-        transition: transform 0.3s;
+        transition: transform 0.5s ease, opacity 0.3s ease;
       }
-      
+
+      .paper-box:hover .paper-box-image img {
+        transform: scale(1.04);
+      }
+
       .paper-box-image img:hover {
-        transform: scale(1.05);
+        opacity: 0.95;
       }
       
       /* Lightbox for image zoom */
@@ -360,82 +1205,574 @@
       
       .badge {
         position: absolute;
-        top: 5px;
-        left: 5px;
-        background: #3498db;
-        color: white;
-        padding: 4px 10px;
-        font-size: 12px;
-        font-weight: bold;
+        top: 10px;
+        left: 10px;
+        background: linear-gradient(135deg, #6a1212 0%, #a02828 55%, #8b1a1a 100%);
+        color: #fff;
+        padding: 4px 11px;
+        font-family: var(--sans);
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.6px;
         border-radius: 3px;
-        z-index: 1;
-        box-shadow: 0 3px 8px rgba(52, 152, 219, 0.4), 0 1px 2px rgba(0, 0, 0, 0.2);
-        transform: translateY(-1px);
+        z-index: 2;
+        text-transform: uppercase;
+        box-shadow:
+          0 2px 6px rgba(139, 26, 26, 0.4),
+          inset 0 1px 0 rgba(255, 255, 255, 0.15),
+          inset 0 -1px 0 rgba(0, 0, 0, 0.18);
+        backdrop-filter: blur(2px);
+        transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease;
+        overflow: hidden;
       }
-      
+
+      .badge::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -120%;
+        width: 60%;
+        height: 100%;
+        background: linear-gradient(120deg, transparent 0%, rgba(255, 255, 255, 0.45) 50%, transparent 100%);
+        transition: left 0.7s ease;
+      }
+
+      .paper-box:hover .badge {
+        transform: scale(1.08) translateY(-1px);
+        box-shadow:
+          0 6px 16px rgba(139, 26, 26, 0.5),
+          inset 0 1px 0 rgba(255, 255, 255, 0.2);
+      }
+
+      .paper-box:hover .badge::after {
+        left: 130%;
+      }
+
       .paper-box-text {
         flex: 1;
+        min-width: 0;
       }
-      
+
       .paper-box-text p {
-        margin-bottom: 8px;
+        margin-bottom: 6px;
+        font-size: 14.5px;
+        line-height: 1.55;
       }
-      
+
       .paper-box-text p:first-child {
-        font-size: 16px;
-        font-weight: 500;
+        font-size: 16.5px;
+        font-weight: 700;
+        margin-bottom: 8px;
+        line-height: 1.45;
       }
-      
+
       .paper-box-text p:first-child a {
-        color: #3498db;
-        font-weight: 500;
+        color: var(--ink);
+        font-weight: 700;
+        background-image: linear-gradient(90deg, var(--accent) 0%, var(--accent-soft) 100%);
+        background-repeat: no-repeat;
+        background-size: 0% 2px;
+        background-position: 0 100%;
+        transition: background-size 0.45s cubic-bezier(0.65, 0, 0.35, 1), color 0.2s ease;
+        padding-bottom: 1px;
       }
-      
+
+      .paper-box-text p:first-child a:hover {
+        color: var(--accent);
+        text-decoration: none;
+        background-size: 100% 2px;
+      }
+
       .paper-box-text strong {
-        color: #333;
+        color: var(--ink);
       }
-      
-      .show_paper_citations {
-        color: #666;
+
+      .paper-box-text ul {
+        margin-top: 4px;
+      }
+
+      .paper-box-text ul li {
         font-size: 14px;
+        color: var(--ink-soft);
+        line-height: 1.6;
+        padding-left: 14px;
+        margin-bottom: 4px;
+        position: relative;
+      }
+
+      .paper-box-text ul li::before {
+        content: "▸";
+        position: absolute;
+        left: 0;
+        top: 0;
+        color: var(--accent);
+        font-size: 12px;
+      }
+
+      .show_paper_citations {
+        color: var(--muted);
+        font-family: var(--sans);
+        font-size: 12px;
+        font-weight: 500;
+        margin-left: 4px;
       }
       
+      /* About paragraph */
+      .page__content p {
+        margin-bottom: 14px;
+      }
+
+      /* Paper resource links */
+      .paper-links {
+        margin-top: 8px;
+        font-family: var(--sans);
+        font-size: 13px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+        align-items: center;
+      }
+
+      .paper-links a,
+      .paper-links button.bib-toggle {
+        position: relative;
+        display: inline-block;
+        padding: 3px 12px;
+        font-size: 12px;
+        font-weight: 600;
+        color: var(--ink-soft);
+        background: linear-gradient(180deg, #ffffff 0%, var(--bg-soft) 100%);
+        border: 1px solid var(--line);
+        border-radius: 4px;
+        transition: color 0.25s ease, border-color 0.25s ease, transform 0.25s cubic-bezier(0.34, 1.2, 0.64, 1), box-shadow 0.25s ease, background 0.4s ease;
+        cursor: pointer;
+        font-family: var(--sans);
+        line-height: 1.55;
+        letter-spacing: 0.3px;
+      }
+
+      .paper-links a:hover,
+      .paper-links button.bib-toggle:hover {
+        color: #fff;
+        background: linear-gradient(135deg, var(--accent) 0%, var(--accent-deep) 100%);
+        border-color: var(--accent);
+        text-decoration: none;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 14px -4px rgba(139, 26, 26, 0.45);
+      }
+
+      .bibtex-block {
+        display: none;
+        flex-basis: 100%;
+        width: 100%;
+        margin: 8px 0 0;
+        padding: 12px 14px;
+        background: linear-gradient(180deg, #fafaf6 0%, var(--bg-soft) 100%);
+        border: 1px solid var(--line);
+        border-left: 3px solid var(--accent);
+        border-radius: 4px;
+        font-family: "SFMono-Regular", "Menlo", "Consolas", monospace;
+        font-size: 12px;
+        line-height: 1.6;
+        color: var(--ink-soft);
+        white-space: pre;
+        overflow-x: auto;
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.6);
+      }
+
+      .bibtex-block.open {
+        display: block;
+        animation: slideDown 0.3s ease;
+      }
+
+      @keyframes slideDown {
+        from { opacity: 0; transform: translateY(-6px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+
+      .paper-links button.bib-toggle.active {
+        color: #fff;
+        background: linear-gradient(135deg, var(--accent) 0%, var(--accent-deep) 100%);
+        border-color: var(--accent);
+      }
+
+      /* Experience — timeline-flavored grid */
+      .exp-block {
+        display: grid;
+        grid-template-columns: 110px 1fr;
+        column-gap: 18px;
+        row-gap: 14px;
+        font-family: var(--sans);
+        font-size: 15px;
+        margin-bottom: 6px;
+        position: relative;
+      }
+
+      /* match the inline <em> badge used in Education list exactly */
+      .exp-block .exp-period {
+        display: inline-block;
+        color: #fff;
+        background: linear-gradient(135deg, var(--accent-deep) 0%, var(--accent) 100%);
+        font-family: var(--sans);
+        font-weight: 700;
+        font-size: 11.5px;
+        text-align: center;
+        padding: 1px 8px;
+        border-radius: 3px;
+        letter-spacing: 0.4px;
+        align-self: start;
+        box-shadow: 0 2px 5px rgba(139, 26, 26, 0.22);
+        height: fit-content;
+        min-width: 64px;
+        width: fit-content;
+        margin-top: 4px;
+        justify-self: start;
+      }
+
+      .exp-block .exp-detail {
+        color: var(--ink-soft);
+        padding: 1px 0 1px 16px;
+        border-left: 2px solid var(--line);
+        position: relative;
+        transition: border-color 0.25s ease, padding-left 0.25s ease;
+      }
+
+      .exp-block .exp-detail::before {
+        content: "";
+        position: absolute;
+        left: -6px;
+        top: 5px;
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: var(--bg);
+        border: 2px solid var(--accent);
+        transition: transform 0.25s ease, box-shadow 0.25s ease;
+      }
+
+      .exp-block .exp-detail:hover {
+        border-color: var(--accent);
+        padding-left: 20px;
+      }
+
+      .exp-block .exp-detail:hover::before {
+        transform: scale(1.2);
+        background: var(--accent);
+        box-shadow: 0 0 0 4px rgba(139, 26, 26, 0.18);
+      }
+
+      .exp-block .exp-detail .exp-role {
+        font-weight: 400;
+        color: var(--ink-soft);
+      }
+
+      .exp-block .exp-detail .exp-org {
+        font-weight: 700;
+        color: var(--ink);
+      }
+
+      /* Honor highlight (inline, e.g., NeurIPS Spotlight / AAAI Oral) */
+      .honor-tag {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 3px 10px 3px 8px;
+        font-family: var(--sans);
+        font-size: 12.5px;
+        font-weight: 700;
+        letter-spacing: 0.3px;
+        color: #fff;
+        background: linear-gradient(135deg, #8b1a1a 0%, #c0392b 100%);
+        border-radius: 3px;
+        box-shadow: 0 2px 6px rgba(139, 26, 26, 0.28);
+        position: relative;
+        vertical-align: middle;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+      }
+
+      .honor-tag::before {
+        content: "★";
+        font-size: 11px;
+        color: #ffd54a;
+        text-shadow: 0 0 6px rgba(255, 213, 74, 0.7);
+      }
+
+      .honor-tag:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgba(139, 26, 26, 0.4);
+      }
+
+      .honor-tag.honor-oral {
+        background: linear-gradient(135deg, #6a1b1b 0%, #a02828 100%);
+      }
+
+      /* Academic Service — card style */
+      .service-block {
+        margin-bottom: 22px;
+      }
+
+      .service-block h3 {
+        font-family: var(--serif);
+        font-size: 16px;
+        font-weight: 700;
+        color: var(--ink);
+        margin: 14px 0 12px;
+        letter-spacing: 0.2px;
+      }
+
+      .conference-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        align-items: center;
+      }
+
+      .conf-card {
+        display: inline-flex;
+        align-items: center;
+        gap: 7px;
+        padding: 6px 12px;
+        background: linear-gradient(180deg, #ffffff 0%, var(--bg-soft) 100%);
+        border: 1px solid var(--line);
+        border-radius: 5px;
+        font-family: var(--sans);
+        font-size: 13.5px;
+        line-height: 1.4;
+        cursor: default;
+        transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
+      }
+
+      .conf-card .conf-name {
+        font-weight: 700;
+        color: var(--ink);
+        letter-spacing: 0.2px;
+      }
+
+      .conf-card .conf-year {
+        font-weight: 400;
+        color: var(--muted);
+        font-size: 12.5px;
+      }
+
+      .conf-card:hover {
+        border-color: var(--accent);
+        background: linear-gradient(180deg, #fdf6f4 0%, #f7e9e6 100%);
+        transform: translateY(-2px);
+        box-shadow: 0 6px 14px -6px rgba(139, 26, 26, 0.28);
+      }
+
+      .conf-card:hover .conf-name {
+        color: var(--accent);
+      }
+
+      /* Reveal-on-scroll animation */
+      .reveal {
+        opacity: 0;
+        transform: translateY(18px);
+        transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+        will-change: opacity, transform;
+      }
+
+      .reveal.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      /* Site footer */
+      .site-footer {
+        margin-top: 60px;
+        padding: 24px 20px 28px;
+        border-top: 1px solid var(--line);
+        background: linear-gradient(180deg, var(--bg) 0%, var(--bg-soft) 100%);
+        font-family: var(--sans);
+        font-size: 12.5px;
+        color: var(--muted);
+      }
+
+      .site-footer__inner {
+        max-width: 1240px;
+        margin: 0 auto;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 14px;
+      }
+
+      .site-footer .footer-name {
+        font-family: var(--serif);
+        font-weight: 700;
+        color: var(--ink);
+        font-size: 13px;
+      }
+
+      .site-footer .footer-sep {
+        color: var(--line);
+        margin: 0 6px;
+      }
+
+      .site-footer__center {
+        font-style: italic;
+        color: var(--muted);
+      }
+
+      .site-footer .footer-date {
+        font-style: normal;
+        font-weight: 600;
+        color: var(--ink-soft);
+        margin-left: 4px;
+      }
+
+      .site-footer__right {
+        display: inline-flex;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .site-footer__right a {
+        color: var(--muted);
+        font-size: 14px;
+        transition: color 0.2s ease, transform 0.2s ease;
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        text-decoration: none;
+      }
+
+      .site-footer__right a:hover {
+        color: var(--accent);
+        transform: translateY(-1px);
+      }
+
+      .site-footer .footer-license {
+        font-size: 11.5px;
+        font-weight: 600;
+        letter-spacing: 0.3px;
+      }
+
+      @media (max-width: 700px) {
+        .site-footer__inner {
+          flex-direction: column;
+          align-items: center;
+          text-align: center;
+          gap: 8px;
+        }
+      }
+
+      /* Back-to-top floating button */
+      .back-to-top {
+        position: fixed;
+        right: 26px;
+        bottom: 26px;
+        width: 44px;
+        height: 44px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, var(--accent) 0%, var(--accent-deep) 100%);
+        color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        border: none;
+        font-size: 16px;
+        opacity: 0;
+        transform: translateY(8px) scale(0.92);
+        pointer-events: none;
+        transition: opacity 0.35s ease, transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease;
+        box-shadow: 0 8px 22px -8px rgba(139, 26, 26, 0.5), 0 2px 6px rgba(0, 0, 0, 0.08);
+        z-index: 999;
+      }
+
+      .back-to-top.visible {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        pointer-events: auto;
+      }
+
+      .back-to-top:hover {
+        transform: translateY(-3px) scale(1.05);
+        box-shadow: 0 14px 28px -10px rgba(139, 26, 26, 0.7), 0 4px 8px rgba(0, 0, 0, 0.1);
+      }
+
+      .back-to-top:active {
+        transform: translateY(0) scale(0.98);
+      }
+
       /* Responsive */
       @media (max-width: 1024px) {
         #main {
           flex-direction: column;
+          gap: 24px;
         }
-        
+
         .sidebar {
           width: 100%;
           display: flex;
           gap: 20px;
           align-items: flex-start;
+          position: static;
         }
-        
+
         .author__avatar {
           margin-bottom: 0;
+          width: 140px;
         }
-        
+
         .author__avatar img {
-          width: 120px;
-          height: 120px;
-          object-fit: cover;
+          width: 140px;
+          height: 140px;
+        }
+
+        .paper-box-image {
+          width: 290px;
         }
       }
       
       @media (max-width: 768px) {
         .masthead__menu {
           flex-direction: column;
-          gap: 10px;
+          gap: 8px;
+          padding: 12px 0;
         }
-        
-        .visible-links {
+
+        .greedy-nav {
           flex-direction: column;
-          gap: 5px;
+          gap: 8px;
           width: 100%;
         }
-        
+
+        .visible-links {
+          flex-direction: row;
+          flex-wrap: wrap;
+          justify-content: center;
+          gap: 2px 4px;
+          width: 100%;
+        }
+
+        .masthead__menu-home-item {
+          width: 100%;
+          margin-right: 0;
+          padding-right: 0;
+          text-align: center;
+          padding-bottom: 8px;
+          margin-bottom: 4px;
+          border-bottom: 1px solid var(--line);
+        }
+
+        .masthead__menu-home-item::after {
+          display: none;
+        }
+
+        .masthead__menu-item a {
+          padding: 6px 10px;
+          font-size: 13px;
+        }
+
+        .lang-switcher {
+          align-self: center;
+        }
+
         .sidebar {
           flex-direction: column;
         }
@@ -462,29 +1799,42 @@
         <div class="masthead__menu">
           <nav id="site-nav" class="greedy-nav">
             <ul class="visible-links">
-              <li class="masthead__menu-item masthead__menu-item--lg masthead__menu-home-item">
-                <a href="#about-me" data-zh="主页" data-en="Homepage">Homepage</a>
+              <li class="masthead__menu-item masthead__menu-home-item">
+                <a href="#about-me" data-zh="蔡怡帅" data-en="Yishuai Cai">Yishuai Cai</a>
               </li>
               <li class="masthead__menu-item">
-                <a href="#about-me" data-zh="关于我" data-en="About Me">About Me</a>
+                <a href="#about-me" data-zh="关于" data-en="About">About</a>
               </li>
               <li class="masthead__menu-item">
-                <a href="#news" data-zh="新闻" data-en="News">News</a>
+                <a href="#news" data-zh="动态" data-en="News">News</a>
               </li>
               <li class="masthead__menu-item">
-                <a href="#publications" data-zh="发表论文" data-en="Publications">Publications</a>
+                <a href="#publications" data-zh="论文" data-en="Publications">Publications</a>
               </li>
               <li class="masthead__menu-item">
-                <a href="#honors" data-zh="荣誉奖项" data-en="Honors and Awards">Honors and Awards</a>
+                <a href="#honors" data-zh="荣誉" data-en="Honors">Honors</a>
               </li>
               <li class="masthead__menu-item">
-                <a href="#education" data-zh="教育背景" data-en="Education">Education</a>
+                <a href="#education" data-zh="教育" data-en="Education">Education</a>
+              </li>
+              <li class="masthead__menu-item">
+                <a href="#experience" data-zh="经历" data-en="Experience">Experience</a>
+              </li>
+              <li class="masthead__menu-item">
+                <a href="#service" data-zh="服务" data-en="Service">Service</a>
               </li>
             </ul>
           </nav>
-          <div class="lang-switcher">
-            <button class="lang-btn" onclick="switchLang('zh')">中文</button>
-            <button class="lang-btn active" onclick="switchLang('en')">English</button>
+          <div class="nav-toolbar">
+            <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode" title="Toggle dark mode">
+              <i class="fas fa-moon theme-icon-dark" aria-hidden="true"></i>
+              <i class="fas fa-sun theme-icon-light" aria-hidden="true"></i>
+            </button>
+            <div class="lang-switcher" role="group" aria-label="Language switcher">
+              <i class="fas fa-globe lang-icon" aria-hidden="true"></i>
+              <button class="lang-btn" onclick="switchLang('zh')">中</button>
+              <button class="lang-btn active" onclick="switchLang('en')">EN</button>
+            </div>
           </div>
     </div>
   </div>
@@ -501,21 +1851,43 @@
 
           <div class="author__content">
             <h3 class="author__name" data-zh="蔡怡帅" data-en="Yishuai Cai">Yishuai Cai</h3>
-            <p class="author__bio" data-zh="国防科技大学计算机科学与技术博士在读" data-en="Ph.D. Student in Computer Science and Technology, National University of Defense Technology">Ph.D. Student in Computer Science and Technology, National University of Defense Technology</p>
-            <p class="author__bio" data-zh="北京大学-灵初智能联合实验室实习交流" data-en="Research Assistantship at Peking University - Psibot Joint Laboratory">Research Assistantship at Peking University - Psibot Joint Laboratory</p>
-  </div>
+            <p class="author__title" data-zh="计算机科学与技术博士研究生" data-en="Ph.D. Candidate in Computer Science">Ph.D. Candidate in Computer Science</p>
+          </div>
 
           <div class="author__urls-wrapper">
             <ul class="author__urls social-icons">
-              <li>
-                <div style="white-space: normal; margin-bottom: 0.8em; font-size: 13px; line-height: 1.5;" data-zh="北京大学-灵初智能联合实验室博士研究生、PAIR Lab成员" data-en="Ph.D. Researcher at PKU–PsiBot Joint Laboratory and member of PAIR Lab">Ph.D. Researcher at <a href="https://www.psibot.ai/" target="_blank">PKU–PsiBot Joint Laboratory</a> and member of <a href="https://pair.pku.edu.cn/" target="_blank">PAIR Lab</a></div>
+              <li class="sidebar-section">
+                <div class="sidebar-label" data-zh="所属机构" data-en="Affiliations"><i class="fas fa-university"></i> <span>Affiliations</span></div>
+                <ul class="affil-list">
+                  <li>
+                    <span class="affil-role" data-zh="博士在读" data-en="Ph.D. Student">Ph.D. Student</span>
+                    <a class="affil-org" href="https://english.nudt.edu.cn/" target="_blank" data-zh="国防科技大学（NUDT）" data-en="NUDT">NUDT</a>
+                  </li>
+                  <li>
+                    <span class="affil-role" data-zh="访问研究" data-en="Visiting Researcher">Visiting Researcher</span>
+                    <a class="affil-org" href="https://www.psibot.ai/" target="_blank" data-zh="北大–灵初智能联合实验室" data-en="PKU–PsiBot Joint Lab">PKU–PsiBot Joint Lab</a>
+                  </li>
+                </ul>
               </li>
-              <li>
-                <div style="white-space: normal; margin-bottom: 1em; font-size: 13px; line-height: 1.5;" data-zh="研究方向：通用具身人工智能、AI Agent、具身大模型对齐、视觉-语言-动作模型，涵盖行为规划生成与运动控制的完整体系。" data-en="Research Interests: Embodied AI, AI Agents, LLM Alignment, Vision-Language-Action Models; behavior planning and motion control.">Research Interests: Embodied AI, AI Agents, LLM Alignment, Vision-Language-Action Models; behavior planning and motion control.</div>
+              <li class="sidebar-section">
+                <div class="sidebar-label" data-zh="研究方向" data-en="Research Interests"><i class="fas fa-flask"></i> <span>Research Interests</span></div>
+                <div class="research-chips">
+                  <span class="research-chip"><i class="fas fa-robot"></i><span data-zh="具身智能" data-en="Embodied AI">Embodied AI</span></span>
+                  <span class="research-chip"><i class="fas fa-brain"></i><span data-zh="大模型" data-en="LLMs">LLMs</span></span>
+                  <span class="research-chip"><i class="fas fa-microchip"></i><span data-zh="AI Agent" data-en="AI Agents">AI Agents</span></span>
+                  <span class="research-chip"><i class="fas fa-eye"></i>VLA</span>
+                  <span class="research-chip"><i class="fas fa-shield-halved"></i><span data-zh="对齐" data-en="Alignment">Alignment</span></span>
+                  <span class="research-chip"><i class="fas fa-sitemap"></i><span data-zh="行为树规划" data-en="BT Planning">BT Planning</span></span>
+                </div>
               </li>
-              <li><i class="fa fa-fw fa-map-marker" aria-hidden="true"></i> <span data-zh="北京，中国" data-en="Beijing, China">Beijing, China</span></li>
-              <li><a href="mailto:yishuai.cai@outlook.com"><i class="fas fa-fw fa-envelope" aria-hidden="true"></i> Email</a></li>
-              <li><a href="https://scholar.google.com/citations?user=woOucrYAAAAJ&hl=zh-CN&oi=ao" target="_blank"><i class="fas fa-fw fa-graduation-cap"></i> Google Scholar</a></li>
+              <li class="sidebar-section">
+                <div class="sidebar-label" data-zh="联系方式" data-en="Contact"><i class="fas fa-paper-plane"></i> <span>Contact</span></div>
+                <ul class="contact-list">
+                  <li><i class="fas fa-fw fa-map-marker-alt" aria-hidden="true"></i><span data-zh="北京，中国" data-en="Beijing, China">Beijing, China</span></li>
+                  <li><a href="mailto:yishuai.cai@outlook.com"><i class="fas fa-fw fa-envelope" aria-hidden="true"></i><span>Email</span></a></li>
+                  <li><a href="https://scholar.google.com/citations?user=woOucrYAAAAJ&hl=zh-CN&oi=ao" target="_blank"><i class="fas fa-fw fa-graduation-cap"></i><span>Google Scholar</span></a></li>
+                </ul>
+              </li>
             </ul>
           </div>
         </div>
@@ -528,20 +1900,21 @@
             
 <p><span class="anchor" id="about-me"></span></p>
 
-            <p data-zh="我是国防科技大学计算机科学与技术专业博士研究生。现在北京大学-灵初智能联合实验室进行联合培养，师从杨耀东教授和陈源培教授。我的研究主要聚焦于具身人工智能和机器人智能控制，涵盖从高阶行为规划（任务与运动规划、行为树生成）到低阶运动控制（视觉-语言-动作模型、真机强化学习）的完整体系。" data-en="I am a Ph.D. candidate in Computer Science and Technology at the National University of Defense Technology (NUDT). Currently, I conduct research at the Peking University–PsiBot Joint Laboratory, under the guidance of Prof. Yaodong Yang and Prof. Yuanpei Chen. My research focuses on embodied AI and intelligent robot control, spanning from high-level behavior planning (e.g., Task and Motion Planning, behavior tree generation) to low-level motion control (e.g., Vision-Language-Action models, real-world reinforcement learning).">I am a Ph.D. candidate in Computer Science and Technology at the National University of Defense Technology (NUDT). Currently, I conduct research at the Peking University–PsiBot Joint Laboratory, under the guidance of Prof. Yaodong Yang and Prof. Yuanpei Chen. My research focuses on embodied AI and intelligent robot control, spanning from high-level behavior planning (e.g., Task and Motion Planning, behavior tree generation) to low-level motion control (e.g., Vision-Language-Action models, real-world reinforcement learning).</p>
+            <p class="about-bio" data-zh='我是<a href="https://english.nudt.edu.cn/" target="_blank">国防科技大学</a>（NUDT）计算机科学与技术专业博士研究生，现于<a href="https://english.pku.edu.cn/" target="_blank">北京大学</a>–<a href="https://www.psibot.ai/" target="_blank">灵初智能</a>联合实验室进行联合培养，师从<a href="https://www.yangyaodong.com/" target="_blank">杨耀东</a>教授与<a href="https://cypypccpy.github.io/" target="_blank">陈源培</a>教授，同时是<a href="https://pair.pku.edu.cn/" target="_blank">PAIR Lab</a>成员。我的研究聚焦于<strong>具身智能</strong>与<strong>机器人智能控制</strong>，涵盖从高层行为规划（任务与运动规划、行为树生成）到底层运动控制（视觉–语言–动作模型、真实环境强化学习）的完整体系。' data-en='I am a Ph.D. candidate in Computer Science and Technology at the <a href="https://english.nudt.edu.cn/" target="_blank">National University of Defense Technology</a> (NUDT). I am currently a visiting researcher at the <a href="https://english.pku.edu.cn/" target="_blank">Peking University</a>–<a href="https://www.psibot.ai/" target="_blank">PsiBot</a> Joint Laboratory, under the guidance of Prof. <a href="https://www.yangyaodong.com/" target="_blank">Yaodong Yang</a> and Prof. <a href="https://cypypccpy.github.io/" target="_blank">Yuanpei Chen</a>, and I am also a member of the <a href="https://pair.pku.edu.cn/" target="_blank">PAIR Lab</a>. My research focuses on <strong>Embodied AI</strong> and <strong>Intelligent Robot Control</strong>, spanning from high-level behavior planning (e.g., Task and Motion Planning, Behavior Tree generation) to low-level motion control (e.g., Vision–Language–Action models, Real-World Reinforcement Learning).'>I am a Ph.D. candidate in Computer Science and Technology at the <a href="https://english.nudt.edu.cn/" target="_blank">National University of Defense Technology</a> (NUDT). I am currently a visiting researcher at the <a href="https://english.pku.edu.cn/" target="_blank">Peking University</a>–<a href="https://www.psibot.ai/" target="_blank">PsiBot</a> Joint Laboratory, under the guidance of Prof. <a href="https://www.yangyaodong.com/" target="_blank">Yaodong Yang</a> and Prof. <a href="https://cypypccpy.github.io/" target="_blank">Yuanpei Chen</a>, and I am also a member of the <a href="https://pair.pku.edu.cn/" target="_blank">PAIR Lab</a>. My research focuses on <strong>Embodied AI</strong> and <strong>Intelligent Robot Control</strong>, spanning from high-level behavior planning (e.g., Task and Motion Planning, Behavior Tree generation) to low-level motion control (e.g., Vision–Language–Action models, Real-World Reinforcement Learning).</p>
 
             <!-- <p data-zh="我在" data-en="I have published papers at top international conferences with total">I have published papers at top international conferences with total <a href="https://scholar.google.com/citations?user=woOucrYAAAAJ&hl=zh-CN&oi=ao" target="_blank">Google Scholar</a> <span data-zh="上发表了多篇论文，总引用数为" data-en="citations">citations</span> <strong><span id="total_cit">-</span></strong> <span data-zh="（数据正在加载...）" data-en="(loading...)">(loading...)</span>.</p> -->
 
             <h1 id="news"><i class="fas fa-fire"></i> <span data-zh="新闻" data-en="News">News</span></h1>
 <ul>
-              <li><em>2025.04</em>: <span data-zh="SafeVLA入选NeurIPS 2025 Spotlight (Top 3.2%)" data-en="SafeVLA accepted to NeurIPS 2025 as Spotlight (Top 3.2%)">SafeVLA accepted to NeurIPS 2025 as Spotlight (Top 3.2%)</span></li>
+              <li><em>2026.05</em>: <span data-zh="VLA-Arena 被 ICML 2026 录用" data-en="VLA-Arena accepted to ICML 2026">VLA-Arena accepted to ICML 2026</span></li>
+              <li><em>2025.04</em>: <span data-zh="SafeVLA 入选 NeurIPS 2025 Spotlight (Top 3.2%)" data-en="SafeVLA accepted to NeurIPS 2025 as Spotlight (Top 3.2%)">SafeVLA accepted to NeurIPS 2025 as Spotlight (Top 3.2%)</span></li>
               <li><em>2025.01</em>: <span data-zh="个人学术主页正式上线" data-en="Academic homepage launched">Academic homepage launched</span></li>
 </ul>
 
             <h1 id="publications"><i class="fas fa-file-alt"></i> <span data-zh="发表论文" data-en="Publications">Publications</span></h1>
 
             <!-- Paper 1: MRBTP -->
-            <div class="paper-box">
+            <div class="paper-box featured">
               <div class="paper-box-image">
                 <div>
                   <div class="badge">AAAI 2025</div>
@@ -551,10 +1924,23 @@
 <div class="paper-box-text">
                 <p><a href="https://dids-ei.github.io/Project/MRBTP/" target="_blank" data-zh="MRBTP: Efficient Multi-Robot Behavior Tree Planning and Collaboration" data-en="MRBTP: Efficient Multi-Robot Behavior Tree Planning and Collaboration">MRBTP: Efficient Multi-Robot Behavior Tree Planning and Collaboration</a></p>
                 <p data-zh="<strong>蔡怡帅</strong>, Xinglin Chen, Zhongxuan Cai, Yunxin Mao, Minglong Li, Wenjing Yang, Ji Wang" data-en="<strong>Yishuai Cai</strong>, Xinglin Chen, Zhongxuan Cai, Yunxin Mao, Minglong Li, Wenjing Yang, Ji Wang"><strong>Yishuai Cai</strong>, Xinglin Chen, Zhongxuan Cai, Yunxin Mao, Minglong Li, Wenjing Yang, Ji Wang</p>
-                <p><strong><span style="color: #DC143C; font-weight: bold;" data-zh="AAAI 2025 Oral" data-en="AAAI 2025 Oral (Top 4.6%)">AAAI 2025 Oral</span></strong> <strong><span class="show_paper_citations" data="woOucrYAAAAJ:paper1">| Citations: 8</span></strong></p>
+                <p><span class="honor-tag honor-oral" data-zh="AAAI 2025 Oral · Top 4.6%" data-en="AAAI 2025 Oral · Top 4.6%">AAAI 2025 Oral · Top 4.6%</span> <strong><span class="show_paper_citations" data="woOucrYAAAAJ:paper1">| Citations: 12</span></strong></p>
                 <ul>
                   <li data-zh="提出多机器人行为树规划算法，具有理论完备性保证，通过跨树扩展与意图共享机制实现高效多智能体协作。" data-en="Proposes a multi-robot behavior tree planning algorithm with theoretical soundness and completeness guarantees. Achieves efficient multi-agent collaboration through cross-tree expansion and intention sharing.">Proposes a multi-robot behavior tree planning algorithm with theoretical soundness and completeness guarantees. Achieves efficient multi-agent collaboration through cross-tree expansion and intention sharing.</li>
                 </ul>
+                <div class="paper-links">
+                  <a href="https://dids-ei.github.io/Project/MRBTP/" target="_blank">Project</a>
+                  <a href="https://arxiv.org/abs/2412.10773" target="_blank">arXiv</a>
+                  <a href="https://github.com/DIDS-EI/MRBTP" target="_blank">Code</a>
+                  <button type="button" class="bib-toggle" onclick="toggleBib(this)">BibTeX</button>
+                  <pre class="bibtex-block">@inproceedings{cai2025mrbtp,
+  title     = {MRBTP: Efficient Multi-Robot Behavior Tree Planning and Collaboration},
+  author    = {Cai, Yishuai and Chen, Xinglin and Cai, Zhongxuan and Mao, Yunxin and Li, Minglong and Yang, Wenjing and Wang, Ji},
+  booktitle = {Proceedings of the AAAI Conference on Artificial Intelligence (AAAI)},
+  year      = {2025},
+  note      = {Oral, Top 4.6%}
+}</pre>
+                </div>
               </div>
             </div>
 
@@ -569,13 +1955,25 @@
               <div class="paper-box-text">
                 <p><a href="https://dids-ei.github.io/Project/LLM-OBTEA/" target="_blank" data-zh="Integrating Intent Understanding and Optimal Behavior Planning for Behavior Tree Generation from Human Instructions" data-en="Integrating Intent Understanding and Optimal Behavior Planning for Behavior Tree Generation from Human Instructions">Integrating Intent Understanding and Optimal Behavior Planning for Behavior Tree Generation from Human Instructions</a></p>
                 <p data-zh="Xinglin Chen<sup><strong>*</strong></sup>, <strong>蔡怡帅</strong><sup><strong>*</strong></sup>, Yunxin Mao, Minglong Li, Wenjing Yang, Weixia Xu, Ji Wang" data-en="Xinglin Chen<sup><strong>*</strong></sup>, <strong>Yishuai Cai</strong><sup><strong>*</strong></sup>, Yunxin Mao, Minglong Li, Wenjing Yang, Weixia Xu, Ji Wang">Xinglin Chen<sup><strong>*</strong></sup>, <strong>Yishuai Cai</strong><sup><strong>*</strong></sup>, Yunxin Mao, Minglong Li, Wenjing Yang, Weixia Xu, Ji Wang</p>
-                <p><strong>IJCAI 2024</strong> <a href="https://dids-ei.github.io/Project/LLM-OBTEA/" target="_blank"></a> <strong><span class="show_paper_citations" data="woOucrYAAAAJ:paper2">| Citations: 31</span></strong> 
+                <p><strong>IJCAI 2024</strong> <a href="https://dids-ei.github.io/Project/LLM-OBTEA/" target="_blank"></a> <strong><span class="show_paper_citations" data="woOucrYAAAAJ:paper2">| Citations: 35</span></strong> 
                   <!-- <span data-zh="<sup>*</sup> 共同第一作者" data-en="<sup>*</sup> Equal contribution"><sup>*</sup> Equal contribution</span></p> -->
                 <ul>
                   <li data-zh="提出两阶段行为树生成框架，融合大语言模型理解与最优行为树扩展算法，从自然语言指令生成语义正确且任务可达的行为树。" data-en="Proposes a two-stage behavior tree generation framework that integrates large language model understanding with optimal behavior tree expansion, generating semantically correct and task-feasible behavior trees from natural language instructions.">Proposes a two-stage behavior tree generation framework that integrates large language model understanding with optimal behavior tree expansion, generating semantically correct and task-feasible behavior trees from natural language instructions.</li>
-    </ul>
-  </div>
-</div>
+                </ul>
+                <div class="paper-links">
+                  <a href="https://dids-ei.github.io/Project/LLM-OBTEA/" target="_blank">Project</a>
+                  <a href="https://arxiv.org/abs/2405.07474" target="_blank">arXiv</a>
+                  <a href="https://github.com/DIDS-EI/LLM-OBTEA" target="_blank">Code</a>
+                  <button type="button" class="bib-toggle" onclick="toggleBib(this)">BibTeX</button>
+                  <pre class="bibtex-block">@inproceedings{chen2024llmobtea,
+  title     = {Integrating Intent Understanding and Optimal Behavior Planning for Behavior Tree Generation from Human Instructions},
+  author    = {Chen, Xinglin and Cai, Yishuai and Mao, Yunxin and Li, Minglong and Yang, Wenjing and Xu, Weixia and Wang, Ji},
+  booktitle = {Proceedings of the International Joint Conference on Artificial Intelligence (IJCAI)},
+  year      = {2024}
+}</pre>
+                </div>
+              </div>
+            </div>
 
 
             <!-- Paper 3: CABTO -->
@@ -593,47 +1991,51 @@
                 <ul>
                   <li data-zh="提出上下文感知的行为树接地方法，将高阶语义指令有效接地为机器人可执行的低阶操作控制树，支持真实机器人操纵任务。" data-en="Proposes a context-aware behavior tree grounding approach that effectively grounds high-level semantic instructions into low-level robot-executable control trees, enabling real-world robot manipulation.">Proposes a context-aware behavior tree grounding approach that effectively grounds high-level semantic instructions into low-level robot-executable control trees, enabling real-world robot manipulation.</li>
                 </ul>
+                <div class="paper-links">
+                  <a href="https://arxiv.org/abs/2603.16809" target="_blank">arXiv</a>
+                  <button type="button" class="bib-toggle" onclick="toggleBib(this)">BibTeX</button>
+                  <pre class="bibtex-block">@inproceedings{cai2026cabto,
+  title     = {CABTO: Context-Aware Behavior Tree Grounding for Robot Manipulation},
+  author    = {Cai, Yishuai and Chen, Xinglin and Mao, Yunxin and Hu, Kun and Li, Minglong and Yang, Yaodong and Chen, Yuanpei},
+  booktitle = {Proceedings of the AAAI Conference on Artificial Intelligence (AAAI)},
+  year      = {2026}
+}</pre>
+                </div>
               </div>
             </div>
 
-            <!-- Paper 4: VLA-Arena -->
-            <div class="paper-box">
+            <!-- Paper 4: DexFlyWheel -->
+            <div class="paper-box featured">
               <div class="paper-box-image">
                 <div>
-                  <div class="badge">arXiv</div>
-                  <img src="images/vla-arena.png" alt="VLA-Arena" width="100%" onerror="this.style.display='none'">
+                  <div class="badge">NeurIPS 2025</div>
+                  <img src="images/dexflywheel.png" alt="DexFlyWheel" width="100%" onerror="this.style.display='none'">
                 </div>
               </div>
               <div class="paper-box-text">
-                <p><a href="https://arxiv.org/abs/2512.22539" target="_blank" data-zh="VLA-Arena: An Open-Source Framework for Benchmarking Vision-Language-Action Models" data-en="VLA-Arena: An Open-Source Framework for Benchmarking Vision-Language-Action Models">VLA-Arena: An Open-Source Framework for Benchmarking Vision-Language-Action Models</a></p>
-                <p data-zh="Borong Zhang, Jiahao Li, Jiachen Shen, <strong>蔡怡帅</strong>, Yuhao Zhang, Yuanpei Chen, Juntao Dai, Jiaming Ji, Yaodong Yang" data-en="Borong Zhang, Jiahao Li, Jiachen Shen, <strong>Yishuai Cai</strong>, Yuhao Zhang, Yuanpei Chen, Juntao Dai, Jiaming Ji, Yaodong Yang">Borong Zhang, Jiahao Li, Jiachen Shen, <strong>Yishuai Cai</strong>, Yuhao Zhang, Yuanpei Chen, Juntao Dai, Jiaming Ji, Yaodong Yang</p>
-                <p><strong>arXiv</strong> <strong><span class="show_paper_citations" data="woOucrYAAAAJ:paper4">| Citations: 5</span></strong></p>
-                <ul>
-                  <li data-zh="提出开源基准框架用于系统评估视觉-语言-动作模型，涵盖安全性、泛化性和任务复杂度等多维度，支持细粒度难度梯度设计。" data-en="Proposes an open-source benchmark framework for systematic evaluation of Vision-Language-Action models across dimensions of safety, generalization, and task complexity, supporting fine-grained difficulty level design.">Proposes an open-source benchmark framework for systematic evaluation of Vision-Language-Action models across dimensions of safety, generalization, and task complexity, supporting fine-grained difficulty level design.</li>
-                </ul>
-              </div>
-            </div>
-
-        <!-- Paper 5: DexFlyWheel -->
-        <div class="paper-box">
-            <div class="paper-box-image">
-                <div>
-                <div class="badge">NeurIPS 2025</div>
-                <img src="images/dexflywheel.png" alt="DexFlyWheel" width="100%" onerror="this.style.display='none'">
-                </div>
-            </div>
-            <div class="paper-box-text">
                 <p><a href="https://dexflywheel.github.io/" data-zh="DexFlyWheel: A Scalable and Self-improving Data Generation Framework for Dexterous Manipulation" data-en="DexFlyWheel: A Scalable and Self-improving Data Generation Framework for Dexterous Manipulation">DexFlyWheel: A Scalable and Self-improving Data Generation Framework for Dexterous Manipulation</a></p>
                 <p data-zh="Kefei Zhu, Fengshuo Bai, YuanHao Xiang, <strong>蔡怡帅</strong>, Xinglin Chen, Ruochong Li, Xingtao Wang, Hao Dong, Yaodong Yang<sup>†</sup>, Xiaopeng Fan<sup>†</sup>, Yuanpei Chen<sup>†</sup>" data-en="Kefei Zhu, Fengshuo Bai, YuanHao Xiang, <strong>Yishuai Cai</strong>, Xinglin Chen, Ruochong Li, Xingtao Wang, Hao Dong, Yaodong Yang<sup>†</sup>, Xiaopeng Fan<sup>†</sup>, Yuanpei Chen<sup>†</sup>">Kefei Zhu, Fengshuo Bai, YuanHao Xiang, <strong>Yishuai Cai</strong>, Xinglin Chen, Ruochong Li, Xingtao Wang, Hao Dong, Yaodong Yang<sup>†</sup>, Xiaopeng Fan<sup>†</sup>, Yuanpei Chen<sup>†</sup></p>
-                <p><strong><span style="color: #DC143C; font-weight: bold;" data-zh="NeurIPS 2025 Spotlight (Top 3.2%)" data-en="NeurIPS 2025 Spotlight (Top 3.2%)">NeurIPS 2025 Spotlight (Top 3.2%)</span></strong> <strong><span class="show_paper_citations" data="woOucrYAAAAJ:paper5">| Citations: 5</span></strong></p>
+                <p><span class="honor-tag" data-zh="NeurIPS 2025 Spotlight · Top 3.2%" data-en="NeurIPS 2025 Spotlight · Top 3.2%">NeurIPS 2025 Spotlight · Top 3.2%</span> <strong><span class="show_paper_citations" data="woOucrYAAAAJ:paper5">| Citations: 7</span></strong></p>
                 <ul>
                   <li data-zh="提出可扩展自改进的数据生成框架，通过机器人演示收集与自监督学习循环，高效生成高质量的灵巧操作训练数据。" data-en="Proposes a scalable self-improving data generation framework that efficiently generates high-quality dexterous manipulation training data through robot demonstration collection and self-supervised learning cycles.">Proposes a scalable self-improving data generation framework that efficiently generates high-quality dexterous manipulation training data through robot demonstration collection and self-supervised learning cycles.</li>
                 </ul>
-            </div>
+                <div class="paper-links">
+                  <a href="https://dexflywheel.github.io/" target="_blank">Project</a>
+                  <a href="https://arxiv.org/abs/2510.04806" target="_blank">arXiv</a>
+                  <button type="button" class="bib-toggle" onclick="toggleBib(this)">BibTeX</button>
+                  <pre class="bibtex-block">@inproceedings{zhu2025dexflywheel,
+  title     = {DexFlyWheel: A Scalable and Self-improving Data Generation Framework for Dexterous Manipulation},
+  author    = {Zhu, Kefei and Bai, Fengshuo and Xiang, YuanHao and Cai, Yishuai and Chen, Xinglin and Li, Ruochong and Wang, Xingtao and Dong, Hao and Yang, Yaodong and Fan, Xiaopeng and Chen, Yuanpei},
+  booktitle = {Advances in Neural Information Processing Systems (NeurIPS)},
+  year      = {2025},
+  note      = {Spotlight, Top 3.2%}
+}</pre>
+                </div>
+              </div>
             </div>
 
-            <!-- Paper 6: SafeVLA -->
-            <div class="paper-box">
+            <!-- Paper 5: SafeVLA -->
+            <div class="paper-box featured">
               <div class="paper-box-image">
                 <div>
                   <div class="badge">NeurIPS 2025</div>
@@ -643,10 +2045,50 @@
               <div class="paper-box-text">
                 <p><a href="https://safevla.github.io/" target="_blank" data-zh="SafeVLA: Towards Safety Alignment of Vision-Language-Action Model via Constrained Learning" data-en="SafeVLA: Towards Safety Alignment of Vision-Language-Action Model via Constrained Learning">SafeVLA: Towards Safety Alignment of Vision-Language-Action Model via Constrained Learning</a></p>
                 <p data-zh="Borong Zhang, Yuhao Zhang, Jiaming Ji, Yingshan Lei, Josef Dai, Yuanpei Chen, Yaodong Yang" data-en="Borong Zhang, Yuhao Zhang, Jiaming Ji, Yingshan Lei, Josef Dai, Yuanpei Chen, Yaodong Yang">Borong Zhang, Yuhao Zhang, Jiaming Ji, Yingshan Lei, Josef Dai, Yuanpei Chen, Yaodong Yang</p>
-                <p><strong><span style="color: #DC143C; font-weight: bold;" data-zh="NeurIPS 2025 Spotlight (Top 3.2%)" data-en="NeurIPS 2025 Spotlight (Top 3.2%)">NeurIPS 2025 Spotlight (Top 3.2%)</span></strong> <strong><span class="show_paper_citations" data="woOucrYAAAAJ:paper6">| Citations: 24</span></strong></p>
+                <p><span class="honor-tag" data-zh="NeurIPS 2025 Spotlight · Top 3.2%" data-en="NeurIPS 2025 Spotlight · Top 3.2%">NeurIPS 2025 Spotlight · Top 3.2%</span> <strong><span class="show_paper_citations" data="woOucrYAAAAJ:paper6">| Citations: 47</span></strong></p>
                 <ul>
                   <li data-zh="提出集成安全框架，系统建模安全需求、主动引发不安全行为、通过约束马尔可夫决策过程(CMDP)范式进行安全强化学习，实现视觉-语言-动作模型的安全对齐。" data-en="Proposes an Integrated Safety Approach that systematically models safety requirements, actively elicits unsafe behaviors, and enforces safety constraints via constrained MDPs for safe reinforcement learning, achieving safety alignment of Vision-Language-Action models.">Proposes an Integrated Safety Approach that systematically models safety requirements, actively elicits unsafe behaviors, and enforces safety constraints via constrained MDPs for safe reinforcement learning, achieving safety alignment of Vision-Language-Action models.</li>
                 </ul>
+                <div class="paper-links">
+                  <a href="https://safevla.github.io/" target="_blank">Project</a>
+                  <a href="https://arxiv.org/abs/2503.03480" target="_blank">arXiv</a>
+                  <button type="button" class="bib-toggle" onclick="toggleBib(this)">BibTeX</button>
+                  <pre class="bibtex-block">@inproceedings{zhang2025safevla,
+  title     = {SafeVLA: Towards Safety Alignment of Vision-Language-Action Model via Constrained Learning},
+  author    = {Zhang, Borong and Zhang, Yuhao and Ji, Jiaming and Lei, Yingshan and Dai, Josef and Chen, Yuanpei and Yang, Yaodong},
+  booktitle = {Advances in Neural Information Processing Systems (NeurIPS)},
+  year      = {2025},
+  note      = {Spotlight, Top 3.2%}
+}</pre>
+                </div>
+              </div>
+            </div>
+
+            <!-- Paper 6: VLA-Arena -->
+            <div class="paper-box">
+              <div class="paper-box-image">
+                <div>
+                  <div class="badge">ICML 2026</div>
+                  <img src="images/vla-arena.png" alt="VLA-Arena" width="100%" onerror="this.style.display='none'">
+                </div>
+              </div>
+              <div class="paper-box-text">
+                <p><a href="https://arxiv.org/abs/2512.22539" target="_blank" data-zh="VLA-Arena: An Open-Source Framework for Benchmarking Vision-Language-Action Models" data-en="VLA-Arena: An Open-Source Framework for Benchmarking Vision-Language-Action Models">VLA-Arena: An Open-Source Framework for Benchmarking Vision-Language-Action Models</a></p>
+                <p data-zh="Borong Zhang, Jiahao Li, Jiachen Shen, <strong>蔡怡帅</strong>, Yuhao Zhang, Yuanpei Chen, Juntao Dai, Jiaming Ji, Yaodong Yang" data-en="Borong Zhang, Jiahao Li, Jiachen Shen, <strong>Yishuai Cai</strong>, Yuhao Zhang, Yuanpei Chen, Juntao Dai, Jiaming Ji, Yaodong Yang">Borong Zhang, Jiahao Li, Jiachen Shen, <strong>Yishuai Cai</strong>, Yuhao Zhang, Yuanpei Chen, Juntao Dai, Jiaming Ji, Yaodong Yang</p>
+                <p><strong>ICML 2026</strong> <strong><span class="show_paper_citations" data="woOucrYAAAAJ:paper4">| Citations: 15</span></strong></p>
+                <ul>
+                  <li data-zh="提出开源基准框架用于系统评估视觉-语言-动作模型，涵盖安全性、泛化性和任务复杂度等多维度，支持细粒度难度梯度设计。" data-en="Proposes an open-source benchmark framework for systematic evaluation of Vision-Language-Action models across dimensions of safety, generalization, and task complexity, supporting fine-grained difficulty level design.">Proposes an open-source benchmark framework for systematic evaluation of Vision-Language-Action models across dimensions of safety, generalization, and task complexity, supporting fine-grained difficulty level design.</li>
+                </ul>
+                <div class="paper-links">
+                  <a href="https://arxiv.org/abs/2512.22539" target="_blank">arXiv</a>
+                  <button type="button" class="bib-toggle" onclick="toggleBib(this)">BibTeX</button>
+                  <pre class="bibtex-block">@inproceedings{zhang2026vlaarena,
+  title     = {VLA-Arena: An Open-Source Framework for Benchmarking Vision-Language-Action Models},
+  author    = {Zhang, Borong and Li, Jiahao and Shen, Jiachen and Cai, Yishuai and Zhang, Yuhao and Chen, Yuanpei and Dai, Juntao and Ji, Jiaming and Yang, Yaodong},
+  booktitle = {Proceedings of the International Conference on Machine Learning (ICML)},
+  year      = {2026}
+}</pre>
+                </div>
               </div>
             </div>
 
@@ -662,18 +2104,54 @@
                 <div class="paper-box-text">
                   <p><a href="https://dids-ei.github.io/Project/HBTP/" target="_blank" data-zh="HBTP: Heuristic Behavior Tree Planning with Large Language Model Reasoning" data-en="HBTP: Heuristic Behavior Tree Planning with Large Language Model Reasoning">HBTP: Heuristic Behavior Tree Planning with Large Language Model Reasoning</a></p>
                   <p data-zh="<strong>蔡怡帅</strong>, Xinglin Chen, Yunxin Mao, Minglong Li, Shaowu Yang, Wenjing Yang, Ji Wang" data-en="<strong>Yishuai Cai</strong>, Xinglin Chen, Yunxin Mao, Minglong Li, Shaowu Yang, Wenjing Yang, Ji Wang"><strong>Yishuai Cai</strong>, Xinglin Chen, Yunxin Mao, Minglong Li, Shaowu Yang, Wenjing Yang, Ji Wang</p>
-                  <p><strong>ICRA 2025</strong> <strong><span class="show_paper_citations" data="woOucrYAAAAJ:paper8">| Citations: 2</span></strong></p>
+                  <p><strong>ICRA 2025</strong> <strong><span class="show_paper_citations" data="woOucrYAAAAJ:paper8">| Citations: 5</span></strong></p>
                   <ul>
                     <li data-zh="提出启发式行为树规划框架，利用大语言模型推理能力生成有效启发信息，显著提升行为树规划的搜索效率与求解质量。" data-en="Proposes a heuristic behavior tree planning framework that leverages large language model reasoning to generate effective heuristics, significantly improving search efficiency and solution quality.">Proposes a heuristic behavior tree planning framework that leverages large language model reasoning to generate effective heuristics, significantly improving search efficiency and solution quality.</li>
-  </ul>
+                  </ul>
+                  <div class="paper-links">
+                    <a href="https://dids-ei.github.io/Project/HBTP/" target="_blank">Project</a>
+                    <a href="https://arxiv.org/abs/2406.00085" target="_blank">arXiv</a>
+                    <button type="button" class="bib-toggle" onclick="toggleBib(this)">BibTeX</button>
+                    <pre class="bibtex-block">@inproceedings{cai2025hbtp,
+  title     = {HBTP: Heuristic Behavior Tree Planning with Large Language Model Reasoning},
+  author    = {Cai, Yishuai and Chen, Xinglin and Mao, Yunxin and Li, Minglong and Yang, Shaowu and Yang, Wenjing and Wang, Ji},
+  booktitle = {IEEE International Conference on Robotics and Automation (ICRA)},
+  year      = {2025}
+}</pre>
+                  </div>
                 </div>
               </div>
 
+            <!-- Paper 8: RedVLA -->
+            <div class="paper-box">
+              <div class="paper-box-image">
+                <div>
+                  <div class="badge">arXiv 2026</div>
+                  <img src="images/redvla.png" alt="RedVLA" width="100%" onerror="this.style.display='none'">
+                </div>
+              </div>
+              <div class="paper-box-text">
+                <p><a href="https://arxiv.org/abs/2604.22591" target="_blank" data-zh="RedVLA: Physical Red Teaming for Vision-Language-Action Models" data-en="RedVLA: Physical Red Teaming for Vision-Language-Action Models">RedVLA: Physical Red Teaming for Vision-Language-Action Models</a></p>
+                <p data-zh="Yuhao Zhang, Borong Zhang, Jingxuan Fan, Jiachen Shen, <strong>蔡怡帅</strong>, Yaodong Yang, Jiaming Ji" data-en="Yuhao Zhang, Borong Zhang, Jingxuan Fan, Jiachen Shen, <strong>Yishuai Cai</strong>, Yaodong Yang, Jiaming Ji">Yuhao Zhang, Borong Zhang, Jingxuan Fan, Jiachen Shen, <strong>Yishuai Cai</strong>, Yaodong Yang, Jiaming Ji</p>
+                <p><strong>arXiv 2026</strong> <strong><span class="show_paper_citations" data="woOucrYAAAAJ:paper11">| Citations: 2</span></strong></p>
+                <ul>
+                  <li data-zh="提出面向视觉-语言-动作模型的物理红队评测框架，通过对抗性扰动系统揭示VLA在真实物理环境下的安全风险与脆弱性。" data-en="Proposes a physical red teaming framework for Vision-Language-Action models, systematically exposing safety risks and vulnerabilities of VLAs under adversarial physical perturbations.">Proposes a physical red teaming framework for Vision-Language-Action models, systematically exposing safety risks and vulnerabilities of VLAs under adversarial physical perturbations.</li>
+                </ul>
+                <div class="paper-links">
+                  <a href="https://arxiv.org/abs/2604.22591" target="_blank">arXiv</a>
+                  <button type="button" class="bib-toggle" onclick="toggleBib(this)">BibTeX</button>
+                  <pre class="bibtex-block">@article{zhang2026redvla,
+  title   = {RedVLA: Physical Red Teaming for Vision-Language-Action Models},
+  author  = {Zhang, Yuhao and Zhang, Borong and Fan, Jingxuan and Shen, Jiachen and Cai, Yishuai and Yang, Yaodong and Ji, Jiaming},
+  journal = {arXiv preprint},
+  year    = {2026}
+}</pre>
+                </div>
+              </div>
+            </div>
 
 
-
-
-            <!-- Paper 8: Task2Morph -->
+            <!-- Paper 9: Task2Morph -->
             <div class="paper-box">
               <div class="paper-box-image">
                 <div>
@@ -684,14 +2162,22 @@
               <div class="paper-box-text">
                 <p><a href="https://ieeexplore.ieee.org/document/10342063" target="_blank" data-zh="Task2Morph: Differentiable Task-inspired Framework for Contact-Aware Robot Design" data-en="Task2Morph: Differentiable Task-inspired Framework for Contact-Aware Robot Design">Task2Morph: Differentiable Task-inspired Framework for Contact-Aware Robot Design</a></p>
                 <p data-zh="<strong>蔡怡帅</strong>, Shaowu Yang, Minglong Li, Xinglin Chen, Yunxin Mao, Xiaodong Yi, Wenjing Yang" data-en="<strong>Yishuai Cai</strong>, Shaowu Yang, Minglong Li, Xinglin Chen, Yunxin Mao, Xiaodong Yi, Wenjing Yang"><strong>Yishuai Cai</strong>, Shaowu Yang, Minglong Li, Xinglin Chen, Yunxin Mao, Xiaodong Yi, Wenjing Yang</p>
-                <p><strong>IROS 2023</strong> <strong><span class="show_paper_citations" data="woOucrYAAAAJ:paper9">| Citations: 4</span></strong></p>
-                <!-- <ul>
-                  <li data-zh="提出了可微分任务驱动框架，用于接触感知的机器人设计，通过任务到形态的映射优化机器人形态。" data-en="Proposes a differentiable task-inspired framework for contact-aware robot design that optimizes robot morphology through task-to-morphology mapping.">Proposes a differentiable task-inspired framework for contact-aware robot design that optimizes robot morphology through task-to-morphology mapping.</li>
-</ul> -->
+                <p><strong>IROS 2023</strong> <strong><span class="show_paper_citations" data="woOucrYAAAAJ:paper9">| Citations: 7</span></strong></p>
+                <div class="paper-links">
+                  <a href="https://ieeexplore.ieee.org/document/10342063" target="_blank">PDF</a>
+                  <a href="https://arxiv.org/abs/2308.14397" target="_blank">arXiv</a>
+                  <button type="button" class="bib-toggle" onclick="toggleBib(this)">BibTeX</button>
+                  <pre class="bibtex-block">@inproceedings{cai2023task2morph,
+  title     = {Task2Morph: Differentiable Task-inspired Framework for Contact-Aware Robot Design},
+  author    = {Cai, Yishuai and Yang, Shaowu and Li, Minglong and Chen, Xinglin and Mao, Yunxin and Yi, Xiaodong and Yang, Wenjing},
+  booktitle = {IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS)},
+  year      = {2023}
+}</pre>
+                </div>
               </div>
             </div>
 
-            <!-- Paper 9: Evolving Physical Instinct -->
+            <!-- Paper 10: Evolving Physical Instinct -->
             <div class="paper-box">
               <div class="paper-box-image">
                 <div>
@@ -702,10 +2188,46 @@
               <div class="paper-box-text">
                 <p><a href="https://ieeexplore.ieee.org/document/10342064" target="_blank" data-zh="Evolving Physical Instinct for Morphology and Control Co-Adaption" data-en="Evolving Physical Instinct for Morphology and Control Co-Adaption">Evolving Physical Instinct for Morphology and Control Co-Adaption</a></p>
                 <p data-zh="Xinglin Chen, Da Huang, Minglong Li, <strong>蔡怡帅</strong>, Zhuoer Wen, Zhongxuan Cai, Wenjing Yang" data-en="Xinglin Chen, Da Huang, Minglong Li, <strong>Yishuai Cai</strong>, Zhuoer Wen, Zhongxuan Cai, Wenjing Yang">Xinglin Chen, Da Huang, Minglong Li, <strong>Yishuai Cai</strong>, Zhuoer Wen, Zhongxuan Cai, Wenjing Yang</p>
-                <p><strong>IROS 2023</strong> <strong><span class="show_paper_citations" data="woOucrYAAAAJ:paper10">| Citations: 5</span></strong></p>
-                <!-- <ul>
-                  <li data-zh="受生物启发，提出了可进化的本能控制器，通过提供粗略运动倾向增强形态-控制协同适应，降低计算复杂度。" data-en="Inspired by nature, proposes an evolvable instinct controller that enhances morphology-control co-adaption by providing rough motion inclinations, reducing computation complexity.">Inspired by nature, proposes an evolvable instinct controller that enhances morphology-control co-adaption by providing rough motion inclinations, reducing computation complexity.</li>
-                </ul> -->
+                <p><strong>IROS 2023</strong> <strong><span class="show_paper_citations" data="woOucrYAAAAJ:paper10">| Citations: 6</span></strong></p>
+                <div class="paper-links">
+                  <a href="https://ieeexplore.ieee.org/document/10342064" target="_blank">PDF</a>
+                  <button type="button" class="bib-toggle" onclick="toggleBib(this)">BibTeX</button>
+                  <pre class="bibtex-block">@inproceedings{chen2023instinct,
+  title     = {Evolving Physical Instinct for Morphology and Control Co-Adaption},
+  author    = {Chen, Xinglin and Huang, Da and Li, Minglong and Cai, Yishuai and Wen, Zhuoer and Cai, Zhongxuan and Yang, Wenjing},
+  booktitle = {IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS)},
+  year      = {2023}
+}</pre>
+                </div>
+              </div>
+            </div>
+
+            <!-- Paper 11: AI + Materials Science -->
+            <div class="paper-box">
+              <div class="paper-box-image">
+                <div>
+                  <div class="badge">MGEA 2026</div>
+                  <img src="images/MGE.png" alt="AI x Materials Science" width="100%" onerror="this.style.display='none'">
+                </div>
+              </div>
+              <div class="paper-box-text">
+                <p><a href="https://onlinelibrary.wiley.com/doi/10.1002/mgea.70042" target="_blank" data-zh="New Opportunities for the Integration of Artificial Intelligence with Materials Science: From Large Language Models to Embodied Large Models" data-en="New Opportunities for the Integration of Artificial Intelligence with Materials Science: From Large Language Models to Embodied Large Models">New Opportunities for the Integration of Artificial Intelligence with Materials Science: From Large Language Models to Embodied Large Models</a></p>
+                <p data-zh="Zihui Song, <strong>蔡怡帅</strong>, Yi Yu, Pengfei Xiang, Minglong Li, Zhiwei Liu, Mei Dai" data-en="Zihui Song, <strong>Yishuai Cai</strong>, Yi Yu, Pengfei Xiang, Minglong Li, Zhiwei Liu, Mei Dai">Zihui Song, <strong>Yishuai Cai</strong>, Yi Yu, Pengfei Xiang, Minglong Li, Zhiwei Liu, Mei Dai</p>
+                <p><strong>Materials Genome Engineering Advances 2026</strong> <strong><span class="show_paper_citations" data="woOucrYAAAAJ:paper12">| Citations: 1</span></strong></p>
+                <ul>
+                  <li data-zh="综述大语言模型与具身大模型在材料科学中的新机遇，探讨AI驱动的材料发现、自主实验与跨模态科学智能的融合路径。" data-en="A survey on the new opportunities for integrating Large Language Models and Embodied Large Models with materials science, discussing AI-driven materials discovery, autonomous experimentation, and cross-modal scientific intelligence.">A survey on the new opportunities for integrating Large Language Models and Embodied Large Models with materials science, discussing AI-driven materials discovery, autonomous experimentation, and cross-modal scientific intelligence.</li>
+                </ul>
+                <div class="paper-links">
+                  <a href="https://onlinelibrary.wiley.com/doi/10.1002/mgea.70042" target="_blank">PDF</a>
+                  <button type="button" class="bib-toggle" onclick="toggleBib(this)">BibTeX</button>
+                  <pre class="bibtex-block">@article{song2026mgea,
+  title   = {New Opportunities for the Integration of Artificial Intelligence with Materials Science: From Large Language Models to Embodied Large Models},
+  author  = {Song, Zihui and Cai, Yishuai and Yu, Yi and Xiang, Pengfei and Li, Minglong and Liu, Zhiwei and Dai, Mei},
+  journal = {Materials Genome Engineering Advances},
+  year    = {2026},
+  doi     = {10.1002/mgea.70042}
+}</pre>
+                </div>
               </div>
             </div>
 
@@ -713,7 +2235,7 @@
 
             <h1 id="honors"><i class="fas fa-trophy"></i> <span data-zh="荣誉与奖项" data-en="Honors and Awards">Honors and Awards</span></h1>
 <ul>
-              <li><strong data-zh="学术奖学金" data-en="Academic Scholarships">Academic Scholarships</strong>: <span data-zh="国家奖学金（博士阶段）、国家奖学金（本科阶段）、浙江省政府奖学金、国防科技大学校级优秀学员" data-en="National Scholarship (Ph.D.), National Scholarship (Undergraduate), Zhejiang Provincial Government Scholarship, Outstanding Student of NUDT">National Scholarship (Ph.D.), National Scholarship (Undergraduate), Zhejiang Provincial Government Scholarship, Outstanding Student of NUDT</span></li>
+              <li><strong data-zh="学术奖学金与荣誉" data-en="Academic Scholarships">Academic Scholarships</strong>: <span data-zh="国家奖学金（博士阶段）、国家奖学金（本科阶段）、浙江省优秀毕业生、浙江省政府奖学金、国防科技大学校级优秀学员" data-en="National Scholarship (Ph.D.), National Scholarship (Undergraduate), Outstanding Graduate of Zhejiang Province, Zhejiang Provincial Government Scholarship, Outstanding Student of NUDT">National Scholarship (Ph.D.), National Scholarship (Undergraduate), Outstanding Graduate of Zhejiang Province, Zhejiang Provincial Government Scholarship, Outstanding Student of NUDT</span></li>
               <li><em>2023</em>: <span data-zh="中国软件大会—机器人大模型与具身智能挑战赛全国一等奖" data-en="First Prize, Robot Large Model and Embodied Intelligence Challenge (National)">First Prize, Robot Large Model and Embodied Intelligence Challenge (National)</span></li>
               <li><em>2020</em>: <span data-zh="美国大学生数学建模竞赛国际一等奖 (MCM/ICM)" data-en="First Prize, Mathematical Contest in Modeling (MCM/ICM)">First Prize, Mathematical Contest in Modeling (MCM/ICM)</span></li>
               <li><em>2019</em>: <span data-zh="亚太地区大学生数学建模竞赛国际一等奖" data-en="First Prize, Asia-Pacific Mathematical Contest in Modeling">First Prize, Asia-Pacific Mathematical Contest in Modeling</span></li>
@@ -724,12 +2246,72 @@
               <li><em>2021–Present</em>, <span data-zh="博士研究生 | 国防科技大学 | 计算机科学与技术" data-en="Ph.D. | National University of Defense Technology | Computer Science and Technology">Ph.D. | National University of Defense Technology | Computer Science and Technology</span></li>
               <li><em>2024–Present</em>, <span data-zh="联合培养 | 北京大学-灵初智能联合实验室 | 导师：杨耀东、陈源培" data-en="Joint Training | PKU–PsiBot Joint Laboratory | Advisors: Prof. Yaodong Yang, Prof. Yuanpei Chen">Joint Training | PKU–PsiBot Joint Laboratory | Advisors: Prof. Yaodong Yang, Prof. Yuanpei Chen</span></li>
 </ul>
-</ul>
+
+            <h1 id="experience"><i class="fas fa-briefcase"></i> <span data-zh="工作经历" data-en="Experience">Experience</span></h1>
+
+            <div class="exp-block">
+              <div class="exp-period">2026</div>
+              <div class="exp-detail">
+                <span class="exp-role" data-zh="算法工程师（实习）" data-en="Algorithm Engineer (Intern)">Algorithm Engineer (Intern)</span>,
+                <span class="exp-org" data-zh="腾讯混元多模态团队" data-en="Tencent Hunyuan Multimodal Team">Tencent Hunyuan Multimodal Team</span>
+              </div>
+
+              <div class="exp-period">2024 – 2026</div>
+              <div class="exp-detail">
+                <span class="exp-role" data-zh="具身大模型算法工程师（实习）" data-en="Embodied Foundation Model Algorithm Engineer (Intern)">Embodied Foundation Model Algorithm Engineer (Intern)</span>,
+                <span class="exp-org" data-zh="灵初智能 PsiBot" data-en="PsiBot">PsiBot</span>
+              </div>
+            </div>
+
+            <h1 id="service"><i class="fas fa-handshake"></i> <span data-zh="学术服务" data-en="Academic Service">Academic Service</span></h1>
+
+            <div class="service-block">
+              <h3 data-zh="会议审稿人" data-en="Conference Reviewer">Conference Reviewer</h3>
+              <div class="conference-list">
+                <span class="conf-card"><span class="conf-name">NeurIPS</span><span class="conf-year">2024 – 2025</span></span>
+                <span class="conf-card"><span class="conf-name">ICML</span><span class="conf-year">2025 – 2026</span></span>
+                <span class="conf-card"><span class="conf-name">AAAI</span><span class="conf-year">2025 – 2026</span></span>
+                <span class="conf-card"><span class="conf-name">CVPR</span><span class="conf-year">2026</span></span>
+                <span class="conf-card"><span class="conf-name">ECCV</span><span class="conf-year">2026</span></span>
+                <span class="conf-card"><span class="conf-name">ICRA</span><span class="conf-year">2024 – 2026</span></span>
+                <span class="conf-card"><span class="conf-name">IROS</span><span class="conf-year">2024 – 2026</span></span>
+              </div>
+            </div>
+
+            <div class="service-block">
+              <h3 data-zh="国际 SCI 期刊审稿人" data-en="Journal Reviewer">Journal Reviewer</h3>
+              <div class="conference-list">
+                <span class="conf-card"><span class="conf-name">Expert Systems With Applications</span><span class="conf-year">SCI</span></span>
+                <span class="conf-card"><span class="conf-name">Neural Computing and Applications</span><span class="conf-year">SCI</span></span>
+              </div>
+            </div>
 
           </section>
         </div>
       </article>
     </div>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+      <div class="site-footer__inner">
+        <div class="site-footer__left">
+          <span class="footer-name">Yishuai Cai</span>
+          <span class="footer-sep">·</span>
+          <span data-zh="北京，中国" data-en="Beijing, China">Beijing, China</span>
+        </div>
+        <div class="site-footer__center">
+          <span data-zh="最近更新于" data-en="Last updated on">Last updated on</span>
+          <span class="footer-date" id="footer-last-updated">June 2026</span>
+        </div>
+        <div class="site-footer__right">
+          <a href="https://github.com/caiyishuai" target="_blank" aria-label="GitHub" title="GitHub"><i class="fab fa-github"></i></a>
+          <a href="https://scholar.google.com/citations?user=woOucrYAAAAJ&hl=zh-CN&oi=ao" target="_blank" aria-label="Google Scholar" title="Google Scholar"><i class="fas fa-graduation-cap"></i></a>
+          <a href="mailto:yishuai.cai@outlook.com" aria-label="Email" title="Email"><i class="fas fa-envelope"></i></a>
+          <span class="footer-sep">·</span>
+          <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" class="footer-license" title="CC BY 4.0"><i class="fab fa-creative-commons"></i> CC BY 4.0</a>
+        </div>
+      </div>
+    </footer>
 
     <script>
       // Language switching function
@@ -787,6 +2369,14 @@
         }
       }
       
+      // BibTeX toggle
+      function toggleBib(btn) {
+        const block = btn.parentElement.querySelector('.bibtex-block');
+        if (!block) return;
+        const isOpen = block.classList.toggle('open');
+        btn.classList.toggle('active', isOpen);
+      }
+
       // Initialize language immediately when script loads
       if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', initLang);
@@ -816,6 +2406,11 @@
       });
     </script>
     
+    <!-- Back to Top -->
+    <button class="back-to-top" id="back-to-top" aria-label="Back to top" title="Back to top">
+      <i class="fas fa-arrow-up"></i>
+    </button>
+
     <!-- Lightbox for image zoom -->
     <div class="lightbox" id="lightbox" onclick="closeLightbox()">
       <img id="lightbox-img" src="" alt="">
@@ -846,6 +2441,158 @@
           closeLightbox();
         }
       });
+
+      /* ============= UX upgrades ============= */
+
+      // 1. Reveal-on-scroll for paper cards / sections
+      (function setupReveal() {
+        const targets = document.querySelectorAll(
+          '.paper-box, .exp-block, .service-block, h1'
+        );
+        targets.forEach(el => el.classList.add('reveal'));
+
+        if (!('IntersectionObserver' in window)) {
+          targets.forEach(el => el.classList.add('visible'));
+          return;
+        }
+
+        const io = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('visible');
+              io.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+
+        targets.forEach(el => io.observe(el));
+      })();
+
+      // 2. Sticky masthead — add shadow once scrolled, and update reading progress
+      (function setupMastheadScroll() {
+        const masthead = document.querySelector('.masthead');
+        if (!masthead) return;
+        let ticking = false;
+        const update = () => {
+          masthead.classList.toggle('scrolled', window.scrollY > 4);
+          const doc = document.documentElement;
+          const scrollable = (doc.scrollHeight - doc.clientHeight) || 1;
+          const pct = Math.min(100, Math.max(0, (window.scrollY / scrollable) * 100));
+          masthead.style.setProperty('--scroll-progress', pct.toFixed(2) + '%');
+          ticking = false;
+        };
+        const onScroll = () => {
+          if (!ticking) {
+            requestAnimationFrame(update);
+            ticking = true;
+          }
+        };
+        window.addEventListener('scroll', onScroll, { passive: true });
+        window.addEventListener('resize', onScroll, { passive: true });
+        update();
+      })();
+
+      // 3. Scrollspy — highlight current section in navigation
+      (function setupScrollSpy() {
+        const navLinks = Array.from(
+          document.querySelectorAll('.masthead__menu-item a[href^="#"]')
+        );
+        if (!navLinks.length) return;
+
+        const linkBySection = new Map();
+        navLinks.forEach(a => {
+          const id = a.getAttribute('href').slice(1);
+          if (id) linkBySection.set(id, a);
+        });
+
+        const sections = Array.from(linkBySection.keys())
+          .map(id => document.getElementById(id))
+          .filter(Boolean);
+        if (!sections.length) return;
+
+        const setActive = (id) => {
+          navLinks.forEach(a => a.classList.remove('is-active'));
+          const link = linkBySection.get(id);
+          if (link) link.classList.add('is-active');
+        };
+
+        if (!('IntersectionObserver' in window)) return;
+
+        const io = new IntersectionObserver((entries) => {
+          // pick the entry with the largest intersectionRatio that is currently intersecting
+          const visible = entries
+            .filter(e => e.isIntersecting)
+            .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
+          if (visible.length) {
+            setActive(visible[0].target.id);
+          }
+        }, {
+          rootMargin: '-40% 0px -55% 0px',
+          threshold: [0, 0.25, 0.5, 0.75, 1]
+        });
+
+        sections.forEach(s => io.observe(s));
+      })();
+
+      // 4. Back-to-top button
+      (function setupBackToTop() {
+        const btn = document.getElementById('back-to-top');
+        if (!btn) return;
+
+        const onScroll = () => {
+          btn.classList.toggle('visible', window.scrollY > 320);
+        };
+        window.addEventListener('scroll', onScroll, { passive: true });
+        onScroll();
+
+        btn.addEventListener('click', () => {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+      })();
+
+      // 5. Theme toggle (light / dark) — persists in localStorage, follows system on first visit
+      (function setupTheme() {
+        const root = document.documentElement;
+        const btn = document.getElementById('theme-toggle');
+        const KEY = 'preferredTheme';
+        const mq = window.matchMedia('(prefers-color-scheme: dark)');
+
+        const apply = (theme) => {
+          if (theme === 'dark') {
+            root.setAttribute('data-theme', 'dark');
+          } else {
+            root.removeAttribute('data-theme');
+          }
+        };
+
+        const saved = localStorage.getItem(KEY);
+        apply(saved || (mq.matches ? 'dark' : 'light'));
+
+        if (btn) {
+          btn.addEventListener('click', () => {
+            const next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+            apply(next);
+            localStorage.setItem(KEY, next);
+          });
+        }
+
+        // Track system changes only if user has not explicitly set a preference
+        mq.addEventListener && mq.addEventListener('change', (e) => {
+          if (!localStorage.getItem(KEY)) apply(e.matches ? 'dark' : 'light');
+        });
+      })();
+
+      // 6. Footer last-updated date — pulls from document.lastModified
+      (function setupFooterDate() {
+        const el = document.getElementById('footer-last-updated');
+        if (!el) return;
+        try {
+          const d = new Date(document.lastModified);
+          if (isNaN(d.getTime())) return;
+          const months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+          el.textContent = months[d.getMonth()] + ' ' + d.getFullYear();
+        } catch (e) { /* keep fallback */ }
+      })();
     </script>
   </body>
 </html>
