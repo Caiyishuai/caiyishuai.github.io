@@ -83,6 +83,43 @@
         background: rgba(255, 255, 255, 0.04);
       }
 
+      [data-theme="dark"] .social-btn {
+        background: rgba(255, 255, 255, 0.05);
+        border-color: rgba(255, 255, 255, 0.1);
+        color: var(--ink-soft);
+      }
+
+      [data-theme="dark"] .author__stats {
+        background: rgba(255, 255, 255, 0.03);
+        border-color: rgba(255, 255, 255, 0.08);
+      }
+
+      [data-theme="dark"] .cv-toast {
+        background: rgba(30, 30, 34, 0.96);
+        border-color: rgba(255, 255, 255, 0.12);
+        color: #ececec;
+        box-shadow: 0 12px 30px -10px rgba(0, 0, 0, 0.6);
+      }
+
+      [data-theme="dark"] .award-chip {
+        background: linear-gradient(180deg, #25252a 0%, #1d1d21 100%);
+        border-color: rgba(255, 255, 255, 0.12);
+        color: #ececec;
+      }
+
+      [data-theme="dark"] .award-row strong {
+        color: #f0f0f0;
+      }
+
+      [data-theme="dark"] #news + ul > li strong {
+        color: #f0f0f0;
+      }
+
+      [data-theme="dark"] .news-hl {
+        color: var(--accent-soft);
+        border-bottom-color: rgba(232, 144, 144, 0.4);
+      }
+
       [data-theme="dark"] .paper-box.featured {
         background: linear-gradient(180deg, #221f18 0%, #1f1c1a 100%);
         border-left-color: rgba(217, 181, 106, 0.35);
@@ -273,6 +310,15 @@
         border-bottom-color: rgba(0, 0, 0, 0.07);
       }
 
+      /* Compact on scroll */
+      .masthead.scrolled .masthead__menu {
+        padding: 5px 0;
+      }
+
+      .masthead.scrolled .masthead__menu-home-item a {
+        font-size: 15px;
+      }
+
       /* Reading progress bar at the bottom edge of the masthead */
       .masthead::after {
         content: "";
@@ -299,6 +345,7 @@
         align-items: center;
         padding: 10px 0;
         gap: 18px;
+        transition: padding 0.3s ease;
       }
 
       .greedy-nav {
@@ -391,7 +438,7 @@
         letter-spacing: 0.3px;
         padding: 6px 4px 6px 0;
         border-radius: 0;
-        transition: color 0.2s ease;
+        transition: color 0.2s ease, font-size 0.3s ease;
       }
 
       .masthead__menu-home-item a:hover {
@@ -536,43 +583,63 @@
         margin-bottom: 20px;
       }
 
+      @keyframes avatarFadeIn {
+        from { opacity: 0; transform: translateY(12px) scale(0.95); }
+        to   { opacity: 1; transform: translateY(0) scale(1); }
+      }
+
       .author__avatar {
         position: relative;
         width: 200px;
-        margin-bottom: 18px;
+        height: 200px;
+        margin-bottom: 20px;
+        border-radius: 50%;
+        animation: avatarFadeIn 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
       }
 
+      /* Rotating gradient ring around the avatar */
       .author__avatar::before {
         content: "";
         position: absolute;
-        inset: -6px;
-        border-radius: 8px;
-        background: linear-gradient(135deg, rgba(139, 26, 26, 0.18) 0%, rgba(201, 164, 74, 0.15) 100%);
+        inset: -7px;
+        border-radius: 50%;
+        background: conic-gradient(from 140deg, var(--accent) 0deg, var(--gold) 130deg, var(--accent-deep) 250deg, var(--accent) 360deg);
+        opacity: 0.85;
         z-index: 0;
-        opacity: 0;
-        transition: opacity 0.4s ease;
+        transition: opacity 0.4s ease, transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
       }
 
       .author__avatar:hover::before {
         opacity: 1;
+        transform: rotate(10deg) scale(1.02);
+      }
+
+      /* Inner gap between ring and photo (theme-aware) */
+      .author__avatar::after {
+        content: "";
+        position: absolute;
+        inset: -3px;
+        border-radius: 50%;
+        background: var(--bg);
+        z-index: 0;
       }
 
       .author__avatar img {
         position: relative;
         width: 200px;
         height: 200px;
-        border-radius: 6px;
-        border: 1px solid var(--line);
+        border-radius: 50%;
+        border: none;
         display: block;
         object-fit: cover;
-        box-shadow: 0 4px 14px -6px rgba(20, 10, 10, 0.18);
+        box-shadow: 0 6px 18px -8px rgba(20, 10, 10, 0.28);
         transition: transform 0.4s ease, box-shadow 0.4s ease;
         z-index: 1;
       }
 
       .author__avatar:hover img {
-        transform: translateY(-2px);
-        box-shadow: 0 10px 28px -10px rgba(139, 26, 26, 0.42);
+        transform: scale(1.03);
+        box-shadow: 0 12px 30px -10px rgba(139, 26, 26, 0.45);
       }
 
       .author__content {
@@ -777,7 +844,179 @@
         border-bottom-color: var(--accent);
         text-decoration: none;
       }
-      
+
+      /* Social icon buttons (Email / Scholar / GitHub) */
+      .social-buttons {
+        display: flex;
+        gap: 9px;
+        margin-top: 12px;
+      }
+
+      .social-btn {
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid var(--line);
+        background: rgba(255, 255, 255, 0.5);
+        color: var(--ink-soft);
+        font-size: 15px;
+        text-decoration: none;
+        transition: color 0.2s ease, background-color 0.25s ease, border-color 0.2s ease, transform 0.25s ease, box-shadow 0.25s ease;
+      }
+
+      .social-btn:hover {
+        color: #fff;
+        background: linear-gradient(135deg, var(--accent) 0%, var(--accent-deep) 100%);
+        border-color: var(--accent);
+        transform: translateY(-3px);
+        box-shadow: 0 8px 18px -8px rgba(139, 26, 26, 0.55);
+        text-decoration: none;
+      }
+
+      /* Download CV button */
+      .cv-button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 9px;
+        margin-top: 14px;
+        padding: 10px 14px;
+        border-radius: 8px;
+        font-family: var(--sans);
+        font-size: 13px;
+        font-weight: 600;
+        letter-spacing: 0.4px;
+        color: #fff;
+        background: linear-gradient(135deg, var(--accent) 0%, var(--accent-deep) 100%);
+        border: 1px solid var(--accent-deep);
+        box-shadow: 0 4px 14px -6px rgba(139, 26, 26, 0.5);
+        text-decoration: none;
+        transition: transform 0.22s ease, box-shadow 0.22s ease, filter 0.22s ease;
+      }
+
+      .cv-button i { font-size: 13px; }
+
+      .cv-button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 24px -8px rgba(139, 26, 26, 0.6);
+        filter: brightness(1.06);
+        text-decoration: none;
+        color: #fff;
+      }
+
+      button.cv-button {
+        width: 100%;
+        cursor: pointer;
+      }
+
+      .cv-button i {
+        transition: transform 0.3s ease;
+      }
+
+      /* Toast prompt shown when CV is requested (CV not ready yet) */
+      .cv-toast {
+        position: fixed;
+        left: 50%;
+        bottom: 28px;
+        transform: translateX(-50%) translateY(12px);
+        z-index: 1000;
+        display: flex;
+        align-items: center;
+        gap: 9px;
+        max-width: min(90vw, 380px);
+        padding: 12px 18px;
+        border: 1px solid var(--line);
+        border-radius: 10px;
+        background: rgba(255, 255, 255, 0.96);
+        box-shadow: 0 12px 30px -10px rgba(0, 0, 0, 0.3);
+        backdrop-filter: blur(6px);
+        font-family: var(--sans);
+        font-size: 13px;
+        color: var(--ink);
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.3s ease, transform 0.3s ease;
+      }
+
+      .cv-toast.show {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+        pointer-events: auto;
+      }
+
+      .cv-toast i {
+        color: var(--accent);
+        font-size: 14px;
+        flex-shrink: 0;
+      }
+
+      .cv-toast a {
+        color: var(--accent);
+        font-weight: 600;
+        text-decoration: none;
+        border-bottom: 1px solid transparent;
+        transition: border-color 0.2s ease;
+        word-break: break-all;
+      }
+
+      .cv-toast a:hover {
+        border-bottom-color: var(--accent);
+      }
+
+      /* Academic stats card (Papers / Citations / h-index) */
+      .author__stats {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        margin: 16px 0 4px;
+        padding: 12px 6px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: linear-gradient(180deg, rgba(251, 246, 243, 0.5) 0%, rgba(246, 244, 238, 0.3) 100%);
+      }
+
+      .stat-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 2px;
+        position: relative;
+      }
+
+      .stat-item + .stat-item::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 1px;
+        height: 26px;
+        background: var(--line);
+      }
+
+      .stat-num {
+        font-family: var(--serif);
+        font-size: 21px;
+        font-weight: 700;
+        line-height: 1.1;
+        background: linear-gradient(135deg, var(--accent) 0%, var(--gold) 120%);
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        color: var(--accent);
+      }
+
+      .stat-key {
+        font-family: var(--sans);
+        font-size: 9.5px;
+        font-weight: 700;
+        letter-spacing: 0.8px;
+        text-transform: uppercase;
+        color: var(--muted);
+      }
+
       /* Main Content */
       .page {
         flex: 1;
@@ -972,6 +1211,19 @@
         box-shadow: 0 0 0 5px rgba(139, 26, 26, 0.18);
       }
 
+      /* News highlight — venue emphasis (accent + subtle underline) */
+      #news + ul > li strong {
+        font-weight: 700;
+        color: var(--ink);
+      }
+
+      .news-hl {
+        color: var(--accent);
+        font-weight: 700;
+        border-bottom: 1.5px solid rgba(139, 26, 26, 0.35);
+        padding-bottom: 0.5px;
+      }
+
       ul li {
         margin-bottom: 10px;
         padding-left: 14px;
@@ -1020,6 +1272,50 @@
         letter-spacing: 0.4px;
         box-shadow: 0 2px 5px rgba(139, 26, 26, 0.22);
         vertical-align: 1px;
+      }
+
+      /* Award / scholarship chips (Honors section) */
+      .award-row strong {
+        font-family: var(--sans);
+        font-size: 13px;
+        font-weight: 700;
+        letter-spacing: 0.3px;
+        color: var(--ink);
+      }
+
+      .award-chips {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 7px;
+        margin-top: 9px;
+      }
+
+      .award-chip {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 4px 11px;
+        font-family: var(--sans);
+        font-size: 12px;
+        font-weight: 600;
+        line-height: 1.4;
+        color: var(--ink-soft);
+        background: linear-gradient(180deg, rgba(251, 246, 243, 0.7) 0%, rgba(246, 244, 238, 0.4) 100%);
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        transition: color 0.2s ease, border-color 0.2s ease, transform 0.22s ease, box-shadow 0.22s ease;
+      }
+
+      .award-chip i {
+        color: var(--gold);
+        font-size: 11px;
+      }
+
+      .award-chip:hover {
+        color: var(--ink);
+        border-color: var(--gold);
+        transform: translateY(-2px);
+        box-shadow: 0 6px 14px -6px rgba(201, 164, 74, 0.5);
       }
 
       /* Research interest chips */
@@ -1717,6 +2013,7 @@
         .author__avatar {
           margin-bottom: 0;
           width: 140px;
+          height: 140px;
         }
 
         .author__avatar img {
@@ -1846,12 +2143,18 @@
       <div class="sidebar sticky">
         <div itemscope itemtype="http://schema.org/Person" class="profile_box">
           <div class="author__avatar">
-            <img src="images/cys.jpg" class="author__avatar" alt="Yishuai Cai" onerror="this.src='https://via.placeholder.com/175'">
+            <img src="images/cys.jpg" alt="Yishuai Cai" onerror="this.src='https://via.placeholder.com/200'">
           </div>
 
           <div class="author__content">
             <h3 class="author__name" data-zh="蔡怡帅" data-en="Yishuai Cai">Yishuai Cai</h3>
             <p class="author__title" data-zh="计算机科学与技术博士研究生" data-en="Ph.D. Candidate in Computer Science">Ph.D. Candidate in Computer Science</p>
+          </div>
+
+          <div class="author__stats" aria-label="Academic statistics">
+            <div class="stat-item"><span class="stat-num" id="stat-pubs">–</span><span class="stat-key" data-zh="论文" data-en="Papers">Papers</span></div>
+            <div class="stat-item"><span class="stat-num" id="stat-cites">–</span><span class="stat-key" data-zh="引用" data-en="Citations">Citations</span></div>
+            <div class="stat-item"><span class="stat-num" id="stat-hindex">–</span><span class="stat-key">h-index</span></div>
           </div>
 
           <div class="author__urls-wrapper">
@@ -1884,9 +2187,15 @@
                 <div class="sidebar-label" data-zh="联系方式" data-en="Contact"><i class="fas fa-paper-plane"></i> <span>Contact</span></div>
                 <ul class="contact-list">
                   <li><i class="fas fa-fw fa-map-marker-alt" aria-hidden="true"></i><span data-zh="北京，中国" data-en="Beijing, China">Beijing, China</span></li>
-                  <li><a href="mailto:yishuai.cai@outlook.com"><i class="fas fa-fw fa-envelope" aria-hidden="true"></i><span>Email</span></a></li>
-                  <li><a href="https://scholar.google.com/citations?user=woOucrYAAAAJ&hl=zh-CN&oi=ao" target="_blank"><i class="fas fa-fw fa-graduation-cap"></i><span>Google Scholar</span></a></li>
                 </ul>
+                <div class="social-buttons">
+                  <a class="social-btn" href="mailto:yishuai.cai@outlook.com" title="Email" aria-label="Email"><i class="fas fa-envelope"></i></a>
+                  <a class="social-btn" href="https://scholar.google.com/citations?user=woOucrYAAAAJ&hl=zh-CN&oi=ao" target="_blank" title="Google Scholar" aria-label="Google Scholar"><i class="fas fa-graduation-cap"></i></a>
+                  <a class="social-btn" href="https://github.com/caiyishuai" target="_blank" title="GitHub" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                </div>
+                <button type="button" class="cv-button" id="cv-toggle">
+                  <i class="fas fa-file-arrow-down"></i><span data-zh="下载简历" data-en="Download CV">Download CV</span>
+                </button>
               </li>
             </ul>
           </div>
@@ -1900,14 +2209,14 @@
             
 <p><span class="anchor" id="about-me"></span></p>
 
-            <p class="about-bio" data-zh='我是<a href="https://english.nudt.edu.cn/" target="_blank">国防科技大学</a>（NUDT）计算机科学与技术专业博士研究生，现于<a href="https://english.pku.edu.cn/" target="_blank">北京大学</a>–<a href="https://www.psibot.ai/" target="_blank">灵初智能</a>联合实验室进行联合培养，师从<a href="https://www.yangyaodong.com/" target="_blank">杨耀东</a>教授与<a href="https://cypypccpy.github.io/" target="_blank">陈源培</a>教授，同时是<a href="https://pair.pku.edu.cn/" target="_blank">PAIR Lab</a>成员。我的研究聚焦于<strong>具身智能</strong>与<strong>机器人智能控制</strong>，涵盖从高层行为规划（任务与运动规划、行为树生成）到底层运动控制（视觉–语言–动作模型、真实环境强化学习）的完整体系。' data-en='I am a Ph.D. candidate in Computer Science and Technology at the <a href="https://english.nudt.edu.cn/" target="_blank">National University of Defense Technology</a> (NUDT). I am currently a visiting researcher at the <a href="https://english.pku.edu.cn/" target="_blank">Peking University</a>–<a href="https://www.psibot.ai/" target="_blank">PsiBot</a> Joint Laboratory, under the guidance of Prof. <a href="https://www.yangyaodong.com/" target="_blank">Yaodong Yang</a> and Prof. <a href="https://cypypccpy.github.io/" target="_blank">Yuanpei Chen</a>, and I am also a member of the <a href="https://pair.pku.edu.cn/" target="_blank">PAIR Lab</a>. My research focuses on <strong>Embodied AI</strong> and <strong>Intelligent Robot Control</strong>, spanning from high-level behavior planning (e.g., Task and Motion Planning, Behavior Tree generation) to low-level motion control (e.g., Vision–Language–Action models, Real-World Reinforcement Learning).'>I am a Ph.D. candidate in Computer Science and Technology at the <a href="https://english.nudt.edu.cn/" target="_blank">National University of Defense Technology</a> (NUDT). I am currently a visiting researcher at the <a href="https://english.pku.edu.cn/" target="_blank">Peking University</a>–<a href="https://www.psibot.ai/" target="_blank">PsiBot</a> Joint Laboratory, under the guidance of Prof. <a href="https://www.yangyaodong.com/" target="_blank">Yaodong Yang</a> and Prof. <a href="https://cypypccpy.github.io/" target="_blank">Yuanpei Chen</a>, and I am also a member of the <a href="https://pair.pku.edu.cn/" target="_blank">PAIR Lab</a>. My research focuses on <strong>Embodied AI</strong> and <strong>Intelligent Robot Control</strong>, spanning from high-level behavior planning (e.g., Task and Motion Planning, Behavior Tree generation) to low-level motion control (e.g., Vision–Language–Action models, Real-World Reinforcement Learning).</p>
+            <p class="about-bio" data-zh='我是<a href="https://english.nudt.edu.cn/" target="_blank">国防科技大学</a>（NUDT）计算机科学与技术专业博士研究生，现于<a href="https://english.pku.edu.cn/" target="_blank">北京大学</a>–<a href="https://www.psibot.ai/" target="_blank">灵初智能</a>联合实验室进行联合培养，师从<a href="https://www.yangyaodong.com/" target="_blank">杨耀东</a>教授与<a href="https://cypypccpy.github.io/" target="_blank">陈源培</a>教授，同时是<a href="https://pku-alignment.group/" target="_blank">PAIR Lab</a>成员。我的研究聚焦于<strong>具身智能</strong>与<strong>机器人智能控制</strong>，涵盖从高层行为规划（任务与运动规划、行为树生成）到底层运动控制（视觉–语言–动作模型、真实环境强化学习）的完整体系。' data-en='I am a Ph.D. candidate in Computer Science and Technology at the <a href="https://english.nudt.edu.cn/" target="_blank">National University of Defense Technology</a> (NUDT). I am currently a visiting researcher at the <a href="https://english.pku.edu.cn/" target="_blank">Peking University</a>–<a href="https://www.psibot.ai/" target="_blank">PsiBot</a> Joint Laboratory, under the guidance of Prof. <a href="https://www.yangyaodong.com/" target="_blank">Yaodong Yang</a> and Prof. <a href="https://cypypccpy.github.io/" target="_blank">Yuanpei Chen</a>, and I am also a member of the <a href="https://pku-alignment.group/" target="_blank">PAIR Lab</a>. My research focuses on <strong>Embodied AI</strong> and <strong>Intelligent Robot Control</strong>, spanning from high-level behavior planning (e.g., Task and Motion Planning, Behavior Tree generation) to low-level motion control (e.g., Vision–Language–Action models, Real-World Reinforcement Learning).'>I am a Ph.D. candidate in Computer Science and Technology at the <a href="https://english.nudt.edu.cn/" target="_blank">National University of Defense Technology</a> (NUDT). I am currently a visiting researcher at the <a href="https://english.pku.edu.cn/" target="_blank">Peking University</a>–<a href="https://www.psibot.ai/" target="_blank">PsiBot</a> Joint Laboratory, under the guidance of Prof. <a href="https://www.yangyaodong.com/" target="_blank">Yaodong Yang</a> and Prof. <a href="https://cypypccpy.github.io/" target="_blank">Yuanpei Chen</a>, and I am also a member of the <a href="https://pku-alignment.group/" target="_blank">PAIR Lab</a>. My research focuses on <strong>Embodied AI</strong> and <strong>Intelligent Robot Control</strong>, spanning from high-level behavior planning (e.g., Task and Motion Planning, Behavior Tree generation) to low-level motion control (e.g., Vision–Language–Action models, Real-World Reinforcement Learning).</p>
 
             <!-- <p data-zh="我在" data-en="I have published papers at top international conferences with total">I have published papers at top international conferences with total <a href="https://scholar.google.com/citations?user=woOucrYAAAAJ&hl=zh-CN&oi=ao" target="_blank">Google Scholar</a> <span data-zh="上发表了多篇论文，总引用数为" data-en="citations">citations</span> <strong><span id="total_cit">-</span></strong> <span data-zh="（数据正在加载...）" data-en="(loading...)">(loading...)</span>.</p> -->
 
             <h1 id="news"><i class="fas fa-fire"></i> <span data-zh="新闻" data-en="News">News</span></h1>
 <ul>
-              <li><em>2026.05</em>: <span data-zh="VLA-Arena 被 ICML 2026 录用" data-en="VLA-Arena accepted to ICML 2026">VLA-Arena accepted to ICML 2026</span></li>
-              <li><em>2025.04</em>: <span data-zh="SafeVLA 入选 NeurIPS 2025 Spotlight (Top 3.2%)" data-en="SafeVLA accepted to NeurIPS 2025 as Spotlight (Top 3.2%)">SafeVLA accepted to NeurIPS 2025 as Spotlight (Top 3.2%)</span></li>
+              <li><em>2026.05</em>: <span data-zh="<strong>VLA-Arena</strong> 被 <span class='news-hl'>ICML 2026</span> 录用" data-en="<strong>VLA-Arena</strong> accepted to <span class='news-hl'>ICML 2026</span>"><strong>VLA-Arena</strong> accepted to <span class="news-hl">ICML 2026</span></span></li>
+              <li><em>2025.04</em>: <span data-zh="<strong>SafeVLA</strong> 入选 <span class='news-hl'>NeurIPS 2025</span> <span class='news-hl'>Spotlight（前 3.2%）</span>" data-en="<strong>SafeVLA</strong> accepted to <span class='news-hl'>NeurIPS 2025</span> as <span class='news-hl'>Spotlight (Top 3.2%)</span>"><strong>SafeVLA</strong> accepted to <span class="news-hl">NeurIPS 2025</span> as <span class="news-hl">Spotlight (Top 3.2%)</span></span></li>
               <li><em>2025.01</em>: <span data-zh="个人学术主页正式上线" data-en="Academic homepage launched">Academic homepage launched</span></li>
 </ul>
 
@@ -2237,7 +2546,15 @@
 
             <h1 id="honors"><i class="fas fa-trophy"></i> <span data-zh="荣誉与奖项" data-en="Honors and Awards">Honors and Awards</span></h1>
 <ul>
-              <li><strong data-zh="学术奖学金与荣誉" data-en="Academic Scholarships">Academic Scholarships</strong>: <span data-zh="国家奖学金（博士阶段）、国家奖学金（本科阶段）、浙江省优秀毕业生、浙江省政府奖学金、国防科技大学校级优秀学员" data-en="National Scholarship (Ph.D.), National Scholarship (Undergraduate), Outstanding Graduate of Zhejiang Province, Zhejiang Provincial Government Scholarship, Outstanding Student of NUDT">National Scholarship (Ph.D.), National Scholarship (Undergraduate), Outstanding Graduate of Zhejiang Province, Zhejiang Provincial Government Scholarship, Outstanding Student of NUDT</span></li>
+              <li class="award-row"><strong data-zh="学术奖学金与荣誉" data-en="Academic Scholarships">Academic Scholarships</strong>
+                <div class="award-chips">
+                  <span class="award-chip"><i class="fas fa-medal" aria-hidden="true"></i><span data-zh="国家奖学金（博士）" data-en="National Scholarship (Ph.D.)">National Scholarship (Ph.D.)</span></span>
+                  <span class="award-chip"><i class="fas fa-medal" aria-hidden="true"></i><span data-zh="国家奖学金（本科）" data-en="National Scholarship (Undergraduate)">National Scholarship (Undergraduate)</span></span>
+                  <span class="award-chip"><i class="fas fa-medal" aria-hidden="true"></i><span data-zh="浙江省优秀毕业生" data-en="Outstanding Graduate of Zhejiang Province">Outstanding Graduate of Zhejiang Province</span></span>
+                  <span class="award-chip"><i class="fas fa-medal" aria-hidden="true"></i><span data-zh="浙江省政府奖学金" data-en="Zhejiang Provincial Government Scholarship">Zhejiang Provincial Government Scholarship</span></span>
+                  <span class="award-chip"><i class="fas fa-medal" aria-hidden="true"></i><span data-zh="国防科技大学校级优秀学员" data-en="Outstanding Student of NUDT">Outstanding Student of NUDT</span></span>
+                </div>
+              </li>
               <li><em>2023</em>: <span data-zh="中国软件大会—机器人大模型与具身智能挑战赛全国一等奖" data-en="First Prize, Robot Large Model and Embodied Intelligence Challenge (National)">First Prize, Robot Large Model and Embodied Intelligence Challenge (National)</span></li>
               <li><em>2020</em>: <span data-zh="美国大学生数学建模竞赛国际一等奖 (MCM/ICM)" data-en="First Prize, Mathematical Contest in Modeling (MCM/ICM)">First Prize, Mathematical Contest in Modeling (MCM/ICM)</span></li>
               <li><em>2019</em>: <span data-zh="亚太地区大学生数学建模竞赛国际一等奖" data-en="First Prize, Asia-Pacific Mathematical Contest in Modeling">First Prize, Asia-Pacific Mathematical Contest in Modeling</span></li>
@@ -2557,7 +2874,6 @@
         const root = document.documentElement;
         const btn = document.getElementById('theme-toggle');
         const KEY = 'preferredTheme';
-        const mq = window.matchMedia('(prefers-color-scheme: dark)');
 
         const apply = (theme) => {
           if (theme === 'dark') {
@@ -2567,8 +2883,9 @@
           }
         };
 
+        // Default to light theme; only honor an explicit user choice saved earlier.
         const saved = localStorage.getItem(KEY);
-        apply(saved || (mq.matches ? 'dark' : 'light'));
+        apply(saved || 'light');
 
         if (btn) {
           btn.addEventListener('click', () => {
@@ -2577,11 +2894,6 @@
             localStorage.setItem(KEY, next);
           });
         }
-
-        // Track system changes only if user has not explicitly set a preference
-        mq.addEventListener && mq.addEventListener('change', (e) => {
-          if (!localStorage.getItem(KEY)) apply(e.matches ? 'dark' : 'light');
-        });
       })();
 
       // 6. Footer last-updated date — pulls from document.lastModified
@@ -2594,6 +2906,67 @@
           const months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
           el.textContent = months[d.getMonth()] + ' ' + d.getFullYear();
         } catch (e) { /* keep fallback */ }
+      })();
+
+      // 7. Academic stats — values transcribed from Google Scholar
+      // Source: https://scholar.google.com/citations?user=woOucrYAAAAJ (updated 2026-06)
+      (function setupStats() {
+        const pubEl = document.getElementById('stat-pubs');
+        const citeEl = document.getElementById('stat-cites');
+        const hEl = document.getElementById('stat-hindex');
+        if (!pubEl && !citeEl && !hEl) return;
+
+        const pubs = 23;    // Papers
+        const total = 463;  // Total citations
+        const h = 8;        // h-index
+
+        const animate = (el, target) => {
+          if (!el) return;
+          const dur = 900;
+          const start = performance.now();
+          const step = (now) => {
+            const p = Math.min(1, (now - start) / dur);
+            const eased = 1 - Math.pow(1 - p, 3);
+            el.textContent = Math.round(target * eased);
+            if (p < 1) requestAnimationFrame(step);
+            else el.textContent = target;
+          };
+          requestAnimationFrame(step);
+        };
+
+        animate(pubEl, pubs);
+        animate(citeEl, total);
+        animate(hEl, h);
+      })();
+
+      // 8. CV button — show a "please contact by email" toast (CV not ready yet)
+      (function setupCvToggle() {
+        const btn = document.getElementById('cv-toggle');
+        if (!btn) return;
+
+        const EMAIL = 'yishuai.cai@outlook.com';
+        let toast = null;
+        let timer = null;
+
+        btn.addEventListener('click', () => {
+          const zh = document.documentElement.lang === 'zh-CN';
+          if (!toast) {
+            toast = document.createElement('div');
+            toast.className = 'cv-toast';
+            document.body.appendChild(toast);
+          }
+          toast.innerHTML =
+            '<i class="fas fa-envelope" aria-hidden="true"></i>' +
+            '<span>' +
+            (zh ? '请联系邮箱 ' : 'Please contact ') +
+            '<a href="mailto:' + EMAIL + '">' + EMAIL + '</a></span>';
+
+          // restart show animation
+          void toast.offsetWidth;
+          toast.classList.add('show');
+          clearTimeout(timer);
+          timer = setTimeout(() => toast.classList.remove('show'), 4000);
+        });
       })();
     </script>
   </body>
