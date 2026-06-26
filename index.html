@@ -89,9 +89,6 @@
         color: var(--ink-soft);
       }
 
-      [data-theme="dark"] .visit-num {
-        color: #f0f0f0;
-      }
 
       [data-theme="dark"] .author__stats {
         background: rgba(255, 255, 255, 0.03);
@@ -1021,36 +1018,6 @@
         color: var(--muted);
       }
 
-      /* Page-views badge under the stats card */
-      .visit-badge {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 7px;
-        margin: 9px 0 2px;
-        font-family: var(--sans);
-        font-size: 11px;
-        color: var(--ink-soft);
-      }
-
-      .visit-badge i {
-        color: var(--accent);
-        font-size: 11px;
-      }
-
-      .visit-num {
-        font-weight: 700;
-        color: var(--ink);
-        font-variant-numeric: tabular-nums;
-      }
-
-      .visit-key {
-        letter-spacing: 0.6px;
-        text-transform: uppercase;
-        font-size: 9.5px;
-        font-weight: 700;
-        color: var(--muted);
-      }
 
       /* Main Content */
       .page {
@@ -2192,12 +2159,6 @@
             <div class="stat-item"><span class="stat-num" id="stat-hindex">–</span><span class="stat-key">h-index</span></div>
           </div>
 
-          <div class="visit-badge" aria-label="Page views">
-            <i class="fas fa-eye" aria-hidden="true"></i>
-            <span class="visit-num"><span id="busuanzi_value_site_pv">–</span></span>
-            <span class="visit-key" data-zh="访问量" data-en="Visits">Visits</span>
-          </div>
-
           <div class="author__urls-wrapper">
             <ul class="author__urls social-icons">
               <li class="sidebar-section">
@@ -2981,9 +2942,7 @@
         animate(hEl, h);
       })();
 
-      // 7b. Page-views counter — real stats via busuanzi (no backend needed)
-      // The actual count is filled into #busuanzi_value_site_pv by the
-      // busuanzi script loaded near the end of <body>.
+
 
       // 8. CV button — show a "please contact by email" toast (CV not ready yet)
       (function setupCvToggle() {
@@ -3015,8 +2974,5 @@
         });
       })();
     </script>
-
-    <!-- busuanzi: real site-wide page-view counter for static sites -->
-    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
   </body>
 </html>
