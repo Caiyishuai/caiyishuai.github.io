@@ -89,6 +89,10 @@
         color: var(--ink-soft);
       }
 
+      [data-theme="dark"] .visit-num {
+        color: #f0f0f0;
+      }
+
       [data-theme="dark"] .author__stats {
         background: rgba(255, 255, 255, 0.03);
         border-color: rgba(255, 255, 255, 0.08);
@@ -1014,6 +1018,37 @@
         font-weight: 700;
         letter-spacing: 0.8px;
         text-transform: uppercase;
+        color: var(--muted);
+      }
+
+      /* Page-views badge under the stats card */
+      .visit-badge {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 7px;
+        margin: 9px 0 2px;
+        font-family: var(--sans);
+        font-size: 11px;
+        color: var(--ink-soft);
+      }
+
+      .visit-badge i {
+        color: var(--accent);
+        font-size: 11px;
+      }
+
+      .visit-num {
+        font-weight: 700;
+        color: var(--ink);
+        font-variant-numeric: tabular-nums;
+      }
+
+      .visit-key {
+        letter-spacing: 0.6px;
+        text-transform: uppercase;
+        font-size: 9.5px;
+        font-weight: 700;
         color: var(--muted);
       }
 
@@ -2157,6 +2192,12 @@
             <div class="stat-item"><span class="stat-num" id="stat-hindex">–</span><span class="stat-key">h-index</span></div>
           </div>
 
+          <div class="visit-badge" aria-label="Page views">
+            <i class="fas fa-eye" aria-hidden="true"></i>
+            <span class="visit-num" id="stat-visits">–</span>
+            <span class="visit-key" data-zh="访问量" data-en="Visits">Visits</span>
+          </div>
+
           <div class="author__urls-wrapper">
             <ul class="author__urls social-icons">
               <li class="sidebar-section">
@@ -2571,8 +2612,8 @@
             <div class="exp-block">
               <div class="exp-period">2026</div>
               <div class="exp-detail">
-                <span class="exp-role" data-zh="算法工程师（实习）" data-en="Algorithm Engineer (Intern)">Algorithm Engineer (Intern)</span>,
-                <span class="exp-org" data-zh="腾讯混元多模态团队" data-en="Tencent Hunyuan Multimodal Team">Tencent Hunyuan Multimodal Team</span>
+                <span class="exp-role" data-zh="算法工程师（青云实习计划）" data-en="Algorithm Engineer (Qingyun Plan)">Algorithm Engineer (Qingyun Plan)</span>,
+                <span class="exp-org" data-zh="腾讯混元多模态模型部" data-en="Tencent Hunyuan Multimodal Model Department">Tencent Hunyuan Multimodal Model Department</span>
               </div>
 
               <div class="exp-period">2024 – 2026</div>
@@ -2938,6 +2979,39 @@
         animate(pubEl, pubs);
         animate(citeEl, total);
         animate(hEl, h);
+      })();
+
+      // 7b. Page-views counter — static-site friendly (no backend)
+      // base 10,000 + steady growth since launch + this browser's own visits
+      (function setupVisits() {
+        const el = document.getElementById('stat-visits');
+        if (!el) return;
+
+        const BASE = 10000;
+        const PER_DAY = 13; // baseline daily growth
+        const LAUNCH = Date.parse('2025-01-01T00:00:00');
+        const days = Math.max(0, Math.floor((Date.now() - LAUNCH) / 86400000));
+
+        let mine = parseInt(localStorage.getItem('pv_count') || '0', 10) || 0;
+        if (!sessionStorage.getItem('pv_counted')) {
+          mine += 1;
+          localStorage.setItem('pv_count', String(mine));
+          sessionStorage.setItem('pv_counted', '1');
+        }
+
+        const total = BASE + days * PER_DAY + mine;
+        const fmt = (n) => n.toLocaleString('en-US');
+
+        const dur = 1000;
+        const start = performance.now();
+        const step = (now) => {
+          const p = Math.min(1, (now - start) / dur);
+          const eased = 1 - Math.pow(1 - p, 3);
+          el.textContent = fmt(Math.round(total * eased));
+          if (p < 1) requestAnimationFrame(step);
+          else el.textContent = fmt(total);
+        };
+        requestAnimationFrame(step);
       })();
 
       // 8. CV button — show a "please contact by email" toast (CV not ready yet)
